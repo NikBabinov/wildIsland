@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="mainMenu_anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styless/styless.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView id="mainMenu_backgroundImage" cache="true" fitHeight="800.0" fitWidth="1200.0" layoutY="1.0"
+                   nodeOrientation="INHERIT" opacity="0.73" pickOnBounds="true" preserveRatio="true"
+                   styleClass="@../styless/styless.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../images/wildIsland.png"/>
+            </image>
+        </ImageView>
+        <Text id="mainMenu_header" layoutX="393.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              styleClass="@../styless/styless.css" text="Добро пожаловать на остров" wrappingWidth="414.1367492675781"/>
+        <Text id="mainMenu_headerMenu" layoutX="231.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              styleClass="@../styless/styless.css"
+              text="пожалуйста введите начальные параметры острова или оставь по умолчанию и погружайся в увлекательный мир дикой природы"
+              wrappingWidth="756.2489318847656"/>
+        <Button id="mainMenu_buttonStart" layoutX="1033.0" layoutY="685.0" mnemonicParsing="false"
+                styleClass="@../styless/styless.css" text="СТАРТ"/>
+    </children>
+</AnchorPane>
