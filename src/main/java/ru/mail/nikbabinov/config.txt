@@ -1,0 +1,108 @@
+<animalList>
+{
+  "type" : "Bear",
+  "age" : 0,
+  "weight" : 500.0,
+  "speed" : 2,
+  "weightFoodRemoveHunger" : 80.0,
+  "maxNumbOfSpeciesInOneCell" : 5
+}|{
+  "type" : "BoaConstrictor",
+  "age" : 0,
+  "weight" : 15.0,
+  "speed" : 1,
+  "weightFoodRemoveHunger" : 3.0,
+  "maxNumbOfSpeciesInOneCell" : 30
+}|{
+  "type" : "Buffalo",
+  "age" : 0,
+  "weight" : 700.0,
+  "speed" : 3,
+  "weightFoodRemoveHunger" : 100.0,
+  "maxNumbOfSpeciesInOneCell" : 10
+}|{
+  "type" : "Caterpillar",
+  "age" : 0,
+  "weight" : 0.01,
+  "speed" : 0,
+  "weightFoodRemoveHunger" : 0.0,
+  "maxNumbOfSpeciesInOneCell" : 1000
+}|{
+  "type" : "Deer",
+  "age" : 0,
+  "weight" : 300.0,
+  "speed" : 4,
+  "weightFoodRemoveHunger" : 50.0,
+  "maxNumbOfSpeciesInOneCell" : 20
+}|{
+  "type" : "Duck",
+  "age" : 0,
+  "weight" : 1.0,
+  "speed" : 4,
+  "weightFoodRemoveHunger" : 0.15,
+  "maxNumbOfSpeciesInOneCell" : 200
+}|{
+  "type" : "Eagle",
+  "age" : 0,
+  "weight" : 6.0,
+  "speed" : 3,
+  "weightFoodRemoveHunger" : 1.0,
+  "maxNumbOfSpeciesInOneCell" : 20
+}|{
+  "type" : "Fox",
+  "age" : 0,
+  "weight" : 8.0,
+  "speed" : 2,
+  "weightFoodRemoveHunger" : 2.0,
+  "maxNumbOfSpeciesInOneCell" : 30
+}|{
+  "type" : "Goat",
+  "age" : 0,
+  "weight" : 60.0,
+  "speed" : 3,
+  "weightFoodRemoveHunger" : 10.0,
+  "maxNumbOfSpeciesInOneCell" : 140
+}|{
+  "type" : "Horse",
+  "age" : 0,
+  "weight" : 400.0,
+  "speed" : 4,
+  "weightFoodRemoveHunger" : 60.0,
+  "maxNumbOfSpeciesInOneCell" : 20
+}|{
+  "type" : "Mouse",
+  "age" : 0,
+  "weight" : 0.05,
+  "speed" : 1,
+  "weightFoodRemoveHunger" : 0.01,
+  "maxNumbOfSpeciesInOneCell" : 500
+}|{
+  "type" : "Rabbit",
+  "age" : 0,
+  "weight" : 2.0,
+  "speed" : 2,
+  "weightFoodRemoveHunger" : 0.45,
+  "maxNumbOfSpeciesInOneCell" : 150
+}|{
+  "type" : "Sheep",
+  "age" : 0,
+  "weight" : 70.0,
+  "speed" : 3,
+  "weightFoodRemoveHunger" : 15.0,
+  "maxNumbOfSpeciesInOneCell" : 140
+}|{
+  "type" : "WildBoar",
+  "age" : 0,
+  "weight" : 400.0,
+  "speed" : 2,
+  "weightFoodRemoveHunger" : 50.0,
+  "maxNumbOfSpeciesInOneCell" : 50
+}|{
+  "type" : "Wolf",
+  "age" : 0,
+  "weight" : 50.0,
+  "speed" : 3,
+  "weightFoodRemoveHunger" : 8.0,
+  "maxNumbOfSpeciesInOneCell" : 30
+}
+</animalList>

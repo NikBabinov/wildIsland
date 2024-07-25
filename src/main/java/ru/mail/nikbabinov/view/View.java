@@ -40,6 +40,7 @@ public class View extends Application {
 
     private void setIconStartStage(Stage StartStage) {
         InputStream inIcon = getClass().getResourceAsStream("/images/wild_island_icons.png");
+        assert inIcon != null;
         Image icon = new Image(inIcon);
         StartStage.getIcons().add(icon);
     }
