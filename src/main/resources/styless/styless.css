@@ -28,3 +28,19 @@
     -fx-font-size: 20.2px;
     -fx-border-width: 2px 4px 4px 2px;
 }
+
+#mainMenu_vueTableAnimals{
+    -fx-font-size: 14;
+}
+
+#mainMenu_vueTableAnimalsCell{
+    -fx-alignment: center;
+}
+
+#mainMenu_splitPane{
+    -fx-background-color: 0,0,0,0;
+}
+
+#mainMenu_vueTableAnimals{
+    -fx-background-color: 0,0,0,0;
+}

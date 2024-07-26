@@ -5,9 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ru.mail.nikbabinov.constants.ViewProperty;
-import ru.mail.nikbabinov.constants.ViewTextConstants;
 import javafx.fxml.FXMLLoader;
+import ru.mail.nikbabinov.app.MainApplication;
+import ru.mail.nikbabinov.constants.ViewText;
+import ru.mail.nikbabinov.controller.StartSceneViewController;
+import ru.mail.nikbabinov.entity.ConfigApplication;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,13 +31,13 @@ public class View extends Application {
     }
 
     private void setSizeStartStage(Stage StartStage) {
-        StartStage.setWidth(ViewProperty.WIDTH_START_STAGE);
-        StartStage.setHeight(ViewProperty.HEIGHT_START_STAGE);
+        StartStage.setWidth(ConfigApplication.getSizeWindow("width"));
+        StartStage.setHeight(ConfigApplication.getSizeWindow("height"));
         StartStage.setResizable(false);
     }
 
     private void setTitleStartStage(Stage StartStage) {
-        StartStage.setTitle(ViewTextConstants.TITLE_START_STAGE);
+        StartStage.setTitle(ViewText.TITLE_START_STAGE.getViewText());
     }
 
     private void setIconStartStage(Stage StartStage) {
@@ -46,9 +48,12 @@ public class View extends Application {
     }
 
     private void setSceneStartStage(Stage StartStage) throws IOException {
+        StartSceneViewController controller = new StartSceneViewController(StartStage);
         FXMLLoader loader = new FXMLLoader();
         URL url = getClass().getResource("/fxml/startScene.fxml");
         loader.setLocation(url);
+        loader.setController(controller);
+        controller.setApplication(MainApplication.getInstance());
         Parent root = loader.load();
         StartStage.setScene(new Scene(root));
     }

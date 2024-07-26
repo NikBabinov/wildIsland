@@ -2,6 +2,7 @@ package ru.mail.nikbabinov.fauna;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import javafx.beans.property.*;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -21,58 +22,88 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Wolf.class),
         @JsonSubTypes.Type(value = Eagle.class),})
 public abstract class Animal {
-    private int age;
-    private double weight;
-    private int speed;
-    private double weightFoodRemoveHunger;
-    private int maxNumbOfSpeciesInOneCell;
+    private final StringProperty name;
+    private final IntegerProperty age;
+    private final DoubleProperty weight;
+    private final IntegerProperty speed;
+    private final DoubleProperty weightFoodRemoveHunger;
+    private final IntegerProperty maxNumbOfSpeciesInOneCell;
 
-    public Animal(int age, double weight, int speed, double weightFoodRemoveHunger, int maxNumbOfSpeciesInOneCell) {
-        this.age = age;
-        this.weight = weight;
-        this.speed = speed;
-        this.weightFoodRemoveHunger = weightFoodRemoveHunger;
-        this.maxNumbOfSpeciesInOneCell = maxNumbOfSpeciesInOneCell;
+    public Animal(String name, int age, double weight, int speed, double weightFoodRemoveHunger, int maxNumbOfSpeciesInOneCell) {
+        this.name = new SimpleStringProperty(name);
+        this.age = new SimpleIntegerProperty(age);
+        this.weight = new SimpleDoubleProperty(weight);
+        this.speed = new SimpleIntegerProperty(speed);
+        this.weightFoodRemoveHunger = new SimpleDoubleProperty(weightFoodRemoveHunger);
+        this.maxNumbOfSpeciesInOneCell = new SimpleIntegerProperty(maxNumbOfSpeciesInOneCell);
     }
 
-    public int getAge() {
-        return age;
+    public StringProperty nameProperty() {
+        return name;
     }
 
-    public double getWeight() {
+    public IntegerProperty minNumbOfSpeciesInOneCellProperty() {
+        return maxNumbOfSpeciesInOneCell;
+    }
+
+    public DoubleProperty weightProperty() {
         return weight;
     }
 
-    public int getSpeed() {
+    public IntegerProperty speedProperty() {
         return speed;
     }
 
+    public IntegerProperty ageProperty() {
+        return age;
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public int getAge() {
+        return age.get();
+    }
+
+    public double getWeight() {
+        return weight.get();
+    }
+
+    public int getSpeed() {
+        return speed.get();
+    }
+
     public double getWeightFoodRemoveHunger() {
-        return weightFoodRemoveHunger;
+        return weightFoodRemoveHunger.get();
     }
 
     public int getMaxNumbOfSpeciesInOneCell() {
-        return maxNumbOfSpeciesInOneCell;
+        return maxNumbOfSpeciesInOneCell.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
     }
 
 
     public void setAge(int age) {
-        this.age = age;
+        this.age.set(age);
     }
 
     public void setWeight(double weight) {
-        this.weight = weight;
+        this.weight.set(weight);
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        this.speed.set(speed);
     }
 
     public void setWeightFoodRemoveHunger(double weightFoodRemoveHunger) {
-        this.weightFoodRemoveHunger = weightFoodRemoveHunger;
+        this.weightFoodRemoveHunger.set(weightFoodRemoveHunger);
     }
 
     public void setMaxNumbOfSpeciesInOneCell(int maxNumbOfSpeciesInOneCell) {
-        this.maxNumbOfSpeciesInOneCell = maxNumbOfSpeciesInOneCell;
+        this.maxNumbOfSpeciesInOneCell.set(maxNumbOfSpeciesInOneCell);
     }
 }

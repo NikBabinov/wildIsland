@@ -1,5 +1,17 @@
 package ru.mail.nikbabinov.constants;
 
-public class PathToFile {
-    public static final String CONFIG_FILE = "src/main/java/ru/mail/nikbabinov/config.txt";
+public enum PathToFile {
+    CONFIG_FILE("src/main/java/ru/mail/nikbabinov/config.txt"),
+    ;
+
+
+    private final String path;
+
+    PathToFile(String path) {
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
+    }
 }

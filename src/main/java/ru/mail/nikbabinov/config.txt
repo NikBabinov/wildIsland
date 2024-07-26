@@ -1,6 +1,7 @@
 <animalList>
 {
   "type" : "Bear",
+  "name" : "Медведь",
   "age" : 0,
   "weight" : 500.0,
   "speed" : 2,
@@ -8,6 +9,7 @@
   "maxNumbOfSpeciesInOneCell" : 5
 }|{
   "type" : "BoaConstrictor",
+  "name" : "Удав",
   "age" : 0,
   "weight" : 15.0,
   "speed" : 1,
@@ -15,6 +17,7 @@
   "maxNumbOfSpeciesInOneCell" : 30
 }|{
   "type" : "Buffalo",
+  "name" : "Буйвол",
   "age" : 0,
   "weight" : 700.0,
   "speed" : 3,
@@ -22,6 +25,7 @@
   "maxNumbOfSpeciesInOneCell" : 10
 }|{
   "type" : "Caterpillar",
+  "name" : "Гусеница",
   "age" : 0,
   "weight" : 0.01,
   "speed" : 0,
@@ -29,6 +33,7 @@
   "maxNumbOfSpeciesInOneCell" : 1000
 }|{
   "type" : "Deer",
+  "name" : "Олень",
   "age" : 0,
   "weight" : 300.0,
   "speed" : 4,
@@ -36,6 +41,7 @@
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Duck",
+  "name" : "Утка",
   "age" : 0,
   "weight" : 1.0,
   "speed" : 4,
@@ -43,6 +49,7 @@
   "maxNumbOfSpeciesInOneCell" : 200
 }|{
   "type" : "Eagle",
+  "name" : "Орел",
   "age" : 0,
   "weight" : 6.0,
   "speed" : 3,
@@ -50,6 +57,7 @@
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Fox",
+  "name" : "Лиса",
   "age" : 0,
   "weight" : 8.0,
   "speed" : 2,
@@ -57,6 +65,7 @@
   "maxNumbOfSpeciesInOneCell" : 30
 }|{
   "type" : "Goat",
+  "name" : "Козел",
   "age" : 0,
   "weight" : 60.0,
   "speed" : 3,
@@ -64,6 +73,7 @@
   "maxNumbOfSpeciesInOneCell" : 140
 }|{
   "type" : "Horse",
+  "name" : "Лошадь",
   "age" : 0,
   "weight" : 400.0,
   "speed" : 4,
@@ -71,6 +81,7 @@
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Mouse",
+  "name" : "Мышь",
   "age" : 0,
   "weight" : 0.05,
   "speed" : 1,
@@ -78,6 +89,7 @@
   "maxNumbOfSpeciesInOneCell" : 500
 }|{
   "type" : "Rabbit",
+  "name" : "Кролик",
   "age" : 0,
   "weight" : 2.0,
   "speed" : 2,
@@ -85,6 +97,7 @@
   "maxNumbOfSpeciesInOneCell" : 150
 }|{
   "type" : "Sheep",
+  "name" : "Овца",
   "age" : 0,
   "weight" : 70.0,
   "speed" : 3,
@@ -92,6 +105,7 @@
   "maxNumbOfSpeciesInOneCell" : 140
 }|{
   "type" : "WildBoar",
+  "name" : "Дикий кабан",
   "age" : 0,
   "weight" : 400.0,
   "speed" : 2,
@@ -99,6 +113,7 @@
   "maxNumbOfSpeciesInOneCell" : 50
 }|{
   "type" : "Wolf",
+  "name" : "Волк",
   "age" : 0,
   "weight" : 50.0,
   "speed" : 3,
@@ -106,3 +121,7 @@
   "maxNumbOfSpeciesInOneCell" : 30
 }
 </animalList>
+
+<view>
+width : 1200 | height : 800
+</view>
