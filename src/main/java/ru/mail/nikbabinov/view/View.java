@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class View extends Application {
+    private Stage startStage;
 
     public void applicationRun() {
         Application.launch();
@@ -23,11 +24,11 @@ public class View extends Application {
 
     @Override
     public void start(Stage startStage) throws Exception {
+        this.startStage = startStage;
         setSizeStartStage(startStage);
         setTitleStartStage(startStage);
         setIconStartStage(startStage);
         setSceneStartStage(startStage);
-        startStage.show();
     }
 
     private void setSizeStartStage(Stage StartStage) {
@@ -47,14 +48,19 @@ public class View extends Application {
         StartStage.getIcons().add(icon);
     }
 
-    private void setSceneStartStage(Stage StartStage) throws IOException {
-        StartSceneViewController controller = new StartSceneViewController(StartStage);
+    private void setSceneStartStage(Stage startStage) throws IOException {
+        StartSceneViewController controller = new StartSceneViewController(startStage);
         FXMLLoader loader = new FXMLLoader();
         URL url = getClass().getResource("/fxml/startScene.fxml");
         loader.setLocation(url);
         loader.setController(controller);
         controller.setApplication(MainApplication.getInstance());
         Parent root = loader.load();
-        StartStage.setScene(new Scene(root));
+        startStage.setScene(new Scene(root));
+        startStage.show();
+    }
+
+    public Stage getStartStage() {
+        return startStage;
     }
 }

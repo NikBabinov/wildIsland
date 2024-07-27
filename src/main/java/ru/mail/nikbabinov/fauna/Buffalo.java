@@ -12,7 +12,8 @@ public class Buffalo extends Animal implements HerbivorousAnimal {
                    @JsonProperty("weight") double weight,
                    @JsonProperty("speed") int speed,
                    @JsonProperty("weightFoodRemoveHunger") double weightFoodRemoveHunger,
+                   @JsonProperty("startNumbOfSpeciesInOneCell") int startNumbOfSpeciesInOneCell,
                    @JsonProperty("maxNumbOfSpeciesInOneCell") int maxNumbOfSpeciesInOneCell) {
-        super(name, age, weight, speed, weightFoodRemoveHunger, maxNumbOfSpeciesInOneCell);
+        super(name, age, weight, speed, weightFoodRemoveHunger,startNumbOfSpeciesInOneCell, maxNumbOfSpeciesInOneCell);
     }
 }

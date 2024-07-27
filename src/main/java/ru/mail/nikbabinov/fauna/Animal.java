@@ -27,14 +27,16 @@ public abstract class Animal {
     private final DoubleProperty weight;
     private final IntegerProperty speed;
     private final DoubleProperty weightFoodRemoveHunger;
+    private final IntegerProperty startNumbOfSpeciesInOneCell;
     private final IntegerProperty maxNumbOfSpeciesInOneCell;
 
-    public Animal(String name, int age, double weight, int speed, double weightFoodRemoveHunger, int maxNumbOfSpeciesInOneCell) {
+    public Animal(String name, int age, double weight, int speed, double weightFoodRemoveHunger, int startNumbOfSpeciesInOneCell, int maxNumbOfSpeciesInOneCell) {
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
         this.weight = new SimpleDoubleProperty(weight);
         this.speed = new SimpleIntegerProperty(speed);
         this.weightFoodRemoveHunger = new SimpleDoubleProperty(weightFoodRemoveHunger);
+        this.startNumbOfSpeciesInOneCell = new SimpleIntegerProperty(startNumbOfSpeciesInOneCell);
         this.maxNumbOfSpeciesInOneCell = new SimpleIntegerProperty(maxNumbOfSpeciesInOneCell);
     }
 
@@ -42,7 +44,11 @@ public abstract class Animal {
         return name;
     }
 
-    public IntegerProperty minNumbOfSpeciesInOneCellProperty() {
+    public IntegerProperty startNumbOfSpeciesInOneCellProperty() {
+        return startNumbOfSpeciesInOneCell;
+    }
+
+    public IntegerProperty maxNumbOfSpeciesInOneCellProperty() {
         return maxNumbOfSpeciesInOneCell;
     }
 
@@ -78,6 +84,10 @@ public abstract class Animal {
         return weightFoodRemoveHunger.get();
     }
 
+    public int getStartNumbOfSpeciesInOneCell() {
+        return startNumbOfSpeciesInOneCell.get();
+    }
+
     public int getMaxNumbOfSpeciesInOneCell() {
         return maxNumbOfSpeciesInOneCell.get();
     }
@@ -101,6 +111,10 @@ public abstract class Animal {
 
     public void setWeightFoodRemoveHunger(double weightFoodRemoveHunger) {
         this.weightFoodRemoveHunger.set(weightFoodRemoveHunger);
+    }
+
+    public void setStartNumbOfSpeciesInOneCell(int startNumbOfSpeciesInOneCell) {
+        this.startNumbOfSpeciesInOneCell.set(startNumbOfSpeciesInOneCell);
     }
 
     public void setMaxNumbOfSpeciesInOneCell(int maxNumbOfSpeciesInOneCell) {

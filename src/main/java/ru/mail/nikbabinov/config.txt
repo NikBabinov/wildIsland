@@ -6,6 +6,7 @@
   "weight" : 500.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 80.0,
+  "startNumbOfSpeciesInOneCell" : 1,
   "maxNumbOfSpeciesInOneCell" : 5
 }|{
   "type" : "BoaConstrictor",
@@ -14,6 +15,7 @@
   "weight" : 15.0,
   "speed" : 1,
   "weightFoodRemoveHunger" : 3.0,
+  "startNumbOfSpeciesInOneCell" : 10,
   "maxNumbOfSpeciesInOneCell" : 30
 }|{
   "type" : "Buffalo",
@@ -22,6 +24,7 @@
   "weight" : 700.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 100.0,
+  "startNumbOfSpeciesInOneCell" : 2,
   "maxNumbOfSpeciesInOneCell" : 10
 }|{
   "type" : "Caterpillar",
@@ -30,6 +33,7 @@
   "weight" : 0.01,
   "speed" : 0,
   "weightFoodRemoveHunger" : 0.0,
+  "startNumbOfSpeciesInOneCell" : 100,
   "maxNumbOfSpeciesInOneCell" : 1000
 }|{
   "type" : "Deer",
@@ -38,6 +42,7 @@
   "weight" : 300.0,
   "speed" : 4,
   "weightFoodRemoveHunger" : 50.0,
+  "startNumbOfSpeciesInOneCell" : 5,
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Duck",
@@ -46,6 +51,7 @@
   "weight" : 1.0,
   "speed" : 4,
   "weightFoodRemoveHunger" : 0.15,
+  "startNumbOfSpeciesInOneCell" : 20,
   "maxNumbOfSpeciesInOneCell" : 200
 }|{
   "type" : "Eagle",
@@ -54,6 +60,7 @@
   "weight" : 6.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 1.0,
+  "startNumbOfSpeciesInOneCell" : 5,
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Fox",
@@ -62,6 +69,7 @@
   "weight" : 8.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 2.0,
+  "startNumbOfSpeciesInOneCell" : 5,
   "maxNumbOfSpeciesInOneCell" : 30
 }|{
   "type" : "Goat",
@@ -70,6 +78,7 @@
   "weight" : 60.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 10.0,
+  "startNumbOfSpeciesInOneCell" : 30,
   "maxNumbOfSpeciesInOneCell" : 140
 }|{
   "type" : "Horse",
@@ -78,6 +87,7 @@
   "weight" : 400.0,
   "speed" : 4,
   "weightFoodRemoveHunger" : 60.0,
+  "startNumbOfSpeciesInOneCell" : 4,
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
   "type" : "Mouse",
@@ -86,6 +96,7 @@
   "weight" : 0.05,
   "speed" : 1,
   "weightFoodRemoveHunger" : 0.01,
+  "startNumbOfSpeciesInOneCell" : 50,
   "maxNumbOfSpeciesInOneCell" : 500
 }|{
   "type" : "Rabbit",
@@ -94,6 +105,7 @@
   "weight" : 2.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 0.45,
+  "startNumbOfSpeciesInOneCell" : 30,
   "maxNumbOfSpeciesInOneCell" : 150
 }|{
   "type" : "Sheep",
@@ -102,6 +114,7 @@
   "weight" : 70.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 15.0,
+  "startNumbOfSpeciesInOneCell" : 20,
   "maxNumbOfSpeciesInOneCell" : 140
 }|{
   "type" : "WildBoar",
@@ -110,6 +123,7 @@
   "weight" : 400.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 50.0,
+  "startNumbOfSpeciesInOneCell" : 5,
   "maxNumbOfSpeciesInOneCell" : 50
 }|{
   "type" : "Wolf",
@@ -118,6 +132,7 @@
   "weight" : 50.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 8.0,
+  "startNumbOfSpeciesInOneCell" : 8,
   "maxNumbOfSpeciesInOneCell" : 30
 }
 </animalList>

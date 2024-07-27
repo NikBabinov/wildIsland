@@ -6,6 +6,7 @@
 }
 
 #mainMenu_backgroundImage {
+    -fx-opacity: 0.5;
 }
 
 #mainMenu_headerMenu {
@@ -25,8 +26,9 @@
 
 #mainMenu_buttonStart:hover {
     -fx-effect: dropshadow(gaussian, black, 10, 0, 2, 2);
-    -fx-font-size: 20.2px;
-    -fx-border-width: 2px 4px 4px 2px;
+    -fx-font-size: 21px;
+    -fx-border-width: 1px 4px 4px 1px;
+    -fx-background-radius: 15;
 }
 
 #mainMenu_vueTableAnimals{
@@ -38,9 +40,25 @@
 }
 
 #mainMenu_splitPane{
-    -fx-background-color: 0,0,0,0;
+    -fx-opacity: 0.9;
+    -fx-border-style: solid;
+    -fx-border-width: 3px 0 0 0;
+    -fx-border-color: gray;
+
 }
 
 #mainMenu_vueTableAnimals{
     -fx-background-color: 0,0,0,0;
+}
+
+#labelHeaderPropertyAnimalTable{
+    -fx-font-size: 14;
+    -fx-font-weight: 900;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1px 0;
+}
+
+#labelTypeProperty{
+    -fx-font-size: 14;
+    -fx-font-weight: 900;
 }
