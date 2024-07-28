@@ -1,22 +1,24 @@
 package ru.mail.nikbabinov.view;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import ru.mail.nikbabinov.app.MainApplication;
 import ru.mail.nikbabinov.constants.ViewText;
 import ru.mail.nikbabinov.controller.StartSceneViewController;
 import ru.mail.nikbabinov.entity.ConfigApplication;
+import ru.mail.nikbabinov.fauna.Animal;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 public class View extends Application {
-    private Stage startStage;
+    private static final MainApplication mainApplication = MainApplication.getInstance();
+    private AnchorPane rootLayout;
 
     public void applicationRun() {
         Application.launch();
@@ -24,7 +26,6 @@ public class View extends Application {
 
     @Override
     public void start(Stage startStage) throws Exception {
-        this.startStage = startStage;
         setSizeStartStage(startStage);
         setTitleStartStage(startStage);
         setIconStartStage(startStage);
@@ -49,18 +50,17 @@ public class View extends Application {
     }
 
     private void setSceneStartStage(Stage startStage) throws IOException {
-        StartSceneViewController controller = new StartSceneViewController(startStage);
         FXMLLoader loader = new FXMLLoader();
-        URL url = getClass().getResource("/fxml/startScene.fxml");
-        loader.setLocation(url);
-        loader.setController(controller);
-        controller.setApplication(MainApplication.getInstance());
-        Parent root = loader.load();
-        startStage.setScene(new Scene(root));
+        loader.setLocation(getClass().getResource("/fxml/startScene.fxml"));
+        rootLayout = (AnchorPane) loader.load();
+        StartSceneViewController controller = loader.getController();
+        controller.setApplication(this);
+        startStage.setScene(new Scene(rootLayout));
         startStage.show();
     }
 
-    public Stage getStartStage() {
-        return startStage;
+
+    public ObservableList<Animal> getObservableListAnimal() {
+        return mainApplication.getObservableListAnimal();
     }
 }

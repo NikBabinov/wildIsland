@@ -2,13 +2,12 @@ package ru.mail.nikbabinov.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import ru.mail.nikbabinov.app.MainApplication;
 import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.view.View;
 
 public class StartSceneViewController {
 
-    private MainApplication mainApp;
+    private View view;
 
     @FXML
     private Label ageLabel;
@@ -40,23 +39,17 @@ public class StartSceneViewController {
     @FXML
     private TableColumn<Animal, String> tableColumnTypeAnimal;
 
-    private final Stage startSceneStage;
-
-    public StartSceneViewController(Stage stage) {
-        this.startSceneStage = stage;
-    }
-
     @FXML
     private void initialize() {
         showAnimalProperty(null);
-        tableAnimals.setItems(this.mainApp.getObservableListAnimal());
         tableColumnTypeAnimal.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         tableAnimals.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showAnimalProperty(newValue));
     }
 
-    public void setApplication(MainApplication mainApplication) {
-        this.mainApp = mainApplication;
+    public void setApplication(View view) {
+        this.view = view;
+        tableAnimals.setItems(view.getObservableListAnimal());
     }
 
 
@@ -68,7 +61,6 @@ public class StartSceneViewController {
             weightFoodRemoveHungerLabel.setText(String.valueOf(animal.getWeightFoodRemoveHunger()));
             startNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getStartNumbOfSpeciesInOneCell()));
             maxNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getMaxNumbOfSpeciesInOneCell()));
-            showButtonDell();
 
         } else {
             ageLabel.setText("");
@@ -78,8 +70,5 @@ public class StartSceneViewController {
             startNumbOfSpeciesInOneCellLabel.setText("");
             maxNumbOfSpeciesInOneCellLabel.setText("");
         }
-    }
-
-    private void showButtonDell() {
     }
 }
