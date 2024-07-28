@@ -61,6 +61,7 @@ public class StartSceneViewController {
             weightFoodRemoveHungerLabel.setText(String.valueOf(animal.getWeightFoodRemoveHunger()));
             startNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getStartNumbOfSpeciesInOneCell()));
             maxNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getMaxNumbOfSpeciesInOneCell()));
+            view.showDellAnimalButton(tableAnimals);
 
         } else {
             ageLabel.setText("");

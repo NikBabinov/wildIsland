@@ -3,6 +3,8 @@ package ru.mail.nikbabinov.view;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -62,5 +64,16 @@ public class View extends Application {
 
     public ObservableList<Animal> getObservableListAnimal() {
         return mainApplication.getObservableListAnimal();
+    }
+
+    public void showDellAnimalButton(TableView<Animal> tableAnimals) {
+        Button dellAnimal = new Button("Удалить");
+        rootLayout.getChildren().add(dellAnimal);
+        dellAnimal.getStyleClass().add("buttonDellAnimal");
+        dellAnimal.setOnAction(event -> {
+            int selectedIndex = tableAnimals.getSelectionModel().getSelectedIndex();
+            tableAnimals.getItems().remove(selectedIndex);
+        });
+
     }
 }
