@@ -6,13 +6,16 @@ import ru.mail.nikbabinov.fauna.Animal;
 import ru.mail.nikbabinov.view.View;
 
 public class MainApplication {
-    private static final MainApplication INSTANCE = new MainApplication();
+    private static MainApplication INSTANCE = new MainApplication();
 
 
     private MainApplication() {
     }
 
     public static MainApplication getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MainApplication();
+        }
         return INSTANCE;
     }
 
