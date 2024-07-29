@@ -92,6 +92,7 @@ public class View extends Application {
         AnimalEditController controller = loader.getController();
         controller.setDialogStage(dialogStage,controllerStartScene);
         controller.setAnimalProperty(animalTableView);
+        setIconStartStage(dialogStage);
         dialogStage.showAndWait();
     }
 

@@ -48,9 +48,9 @@
                            GridPane.rowIndex="5"/>
             </children>
         </GridPane>
-        <Button id="buttonCancelEditProperty" fx:id="cancelButton" layoutX="298.0" layoutY="241.0"
+        <Button id="buttonCancelEditProperty" fx:id="cancelButton" layoutX="310.0" layoutY="241.0"
                 mnemonicParsing="false" onAction="#closeDialog" text="отмена"/>
-        <Button id="buttonSaveEditProperty" fx:id="saveButton" layoutX="217.0" layoutY="241.0" mnemonicParsing="false"
+        <Button id="buttonSaveEditProperty" fx:id="saveButton" layoutX="232.0" layoutY="241.0" mnemonicParsing="false"
                 onAction="#saveAnimalProperty" text="сохранить"/>
     </children>
 </AnchorPane>

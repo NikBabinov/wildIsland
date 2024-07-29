@@ -14,65 +14,103 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="mainMenu_anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styless/styless.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mail.nikbabinov.controller.StartSceneViewController">
+<AnchorPane id="mainMenu_anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styless/styless.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.mail.nikbabinov.controller.StartSceneViewController">
     <children>
-        <ImageView id="mainMenu_backgroundImage" cache="true" fitHeight="800.0" fitWidth="1200.0" layoutY="1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="@../styless/styless.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView id="mainMenu_backgroundImage" cache="true" fitHeight="800.0" fitWidth="1200.0" layoutY="1.0"
+                   nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true"
+                   styleClass="@../styless/styless.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../images/wildIsland.png" />
+                <Image url="@../images/wildIsland.png"/>
             </image>
         </ImageView>
-        <Text id="mainMenu_header" layoutX="393.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="@../styless/styless.css" text="Добро пожаловать на остров" wrappingWidth="414.1367492675781" />
-        <Text id="mainMenu_headerMenu" layoutX="231.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="@../styless/styless.css" text="пожалуйста введите начальные параметры острова или оставь по умолчанию и погружайся в увлекательный мир дикой природы" wrappingWidth="756.2489318847656" />
-        <Button id="mainMenu_buttonStart" fx:id="startButton" layoutX="1033.0" layoutY="685.0" mnemonicParsing="false" styleClass="@../styless/styless.css" text="СТАРТ" />
-        <SplitPane id="mainMenu_splitPane" fx:id="splitPane" dividerPositions="0.19123641304347827" layoutX="14.0" layoutY="241.0" prefHeight="434.0" prefWidth="1180.0" styleClass="..\styless\styless.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <Text id="mainMenu_header" layoutX="393.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              styleClass="@../styless/styless.css" text="Добро пожаловать на остров" wrappingWidth="414.1367492675781"/>
+        <Text id="mainMenu_headerMenu" layoutX="231.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              styleClass="@../styless/styless.css"
+              text="пожалуйста введите начальные параметры острова или оставь по умолчанию и погружайся в увлекательный мир дикой природы"
+              wrappingWidth="756.2489318847656"/>
+        <Button id="mainMenu_buttonStart" fx:id="startButton" layoutX="1033.0" layoutY="685.0" mnemonicParsing="false"
+                styleClass="@../styless/styless.css" text="Старт"/>
+        <SplitPane id="mainMenu_splitPane" fx:id="splitPane" dividerPositions="0.19123641304347827" layoutX="14.0"
+                   layoutY="241.0" prefHeight="434.0" prefWidth="1180.0" styleClass="..\styless\styless.css"
+                   AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TableView id="mainMenu_vueTableAnimals" fx:id="tableAnimals" accessibleRole="MENU" prefHeight="427.0" prefWidth="328.0" styleClass="..\styless\styless.css" AnchorPane.bottomAnchor="1.5" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.5">
+                        <TableView id="mainMenu_vueTableAnimals" fx:id="tableAnimals" accessibleRole="MENU"
+                                   prefHeight="427.0" prefWidth="328.0" styleClass="..\styless\styless.css"
+                                   AnchorPane.bottomAnchor="1.5" AnchorPane.leftAnchor="10.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.5">
                             <columns>
-                                <TableColumn id="mainMenu_vueTableAnimalsCell" fx:id="tableColumnTypeAnimal" prefWidth="153.33333206176758" styleClass="..\styless\styless.css" text="Вид животного" />
+                                <TableColumn id="mainMenu_vueTableAnimalsCell" fx:id="tableColumnTypeAnimal"
+                                             prefWidth="153.33333206176758" styleClass="..\styless\styless.css"
+                                             text="Вид животного"/>
                             </columns>
                             <opaqueInsets>
-                                <Insets />
+                                <Insets/>
                             </opaqueInsets>
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                         </TableView>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="823.0">
-               <children>
-                  <Label id="labelHeaderPropertyAnimalTable" layoutX="364.0" layoutY="4.0" prefHeight="21.0" prefWidth="287.0" styleClass="\@../styless/styless.css" text="Подробное описание свойств животного" />
-                  <GridPane layoutX="-1.0" layoutY="40.0" prefHeight="388.0" prefWidth="950.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.5333251953125" minWidth="10.0" prefWidth="268.20001220703125" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="589.7999877929688" minWidth="10.0" prefWidth="581.7999877929688" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Возраст :" />
-                        <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Вес :" GridPane.rowIndex="1" />
-                        <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Скорость :" GridPane.rowIndex="2" />
-                        <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Вес пищи для насыщения :" GridPane.rowIndex="3" />
-                        <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Стартовое количество животных :" GridPane.rowIndex="4" />
-                        <Label id="labelTypeProperty" styleClass="\\\@../styless/styless.css" text="Общее количество животных :" GridPane.rowIndex="5" />
-                        <Label id="labelTypeProperty" fx:id="ageLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" />
-                        <Label id="labelTypeProperty" fx:id="weightLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label id="labelTypeProperty" fx:id="speedLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label id="labelTypeProperty" fx:id="weightFoodRemoveHungerLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label id="labelTypeProperty" fx:id="startNumbOfSpeciesInOneCellLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label id="labelTypeProperty" fx:id="maxNumbOfSpeciesInOneCellLabel" styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                     </children>
-                  </GridPane>
-               </children></AnchorPane>
+                    <children>
+                        <Label id="labelHeaderPropertyAnimalTable" layoutX="364.0" layoutY="4.0" prefHeight="21.0"
+                               prefWidth="287.0" styleClass="\@../styless/styless.css"
+                               text="Подробное описание свойств животного"/>
+                        <GridPane layoutX="-1.0" layoutY="40.0" prefHeight="388.0" prefWidth="950.0"
+                                  AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.5333251953125" minWidth="10.0"
+                                                   prefWidth="268.20001220703125"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="589.7999877929688" minWidth="10.0"
+                                                   prefWidth="581.7999877929688"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Возраст :"/>
+                                <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Вес :"
+                                       GridPane.rowIndex="1"/>
+                                <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css" text="Скорость :"
+                                       GridPane.rowIndex="2"/>
+                                <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css"
+                                       text="Вес пищи для насыщения :" GridPane.rowIndex="3"/>
+                                <Label id="labelTypeProperty" styleClass="\\@../styless/styless.css"
+                                       text="Стартовое количество животных :" GridPane.rowIndex="4"/>
+                                <Label id="labelTypeProperty" styleClass="\\\@../styless/styless.css"
+                                       text="Общее количество животных :" GridPane.rowIndex="5"/>
+                                <Label id="labelTypeProperty" fx:id="ageLabel" styleClass="\\\@../styless/styless.css"
+                                       text="Label" GridPane.columnIndex="1"/>
+                                <Label id="labelTypeProperty" fx:id="weightLabel"
+                                       styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="1"/>
+                                <Label id="labelTypeProperty" fx:id="speedLabel" styleClass="\\\@../styless/styless.css"
+                                       text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                <Label id="labelTypeProperty" fx:id="weightFoodRemoveHungerLabel"
+                                       styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="3"/>
+                                <Label id="labelTypeProperty" fx:id="startNumbOfSpeciesInOneCellLabel"
+                                       styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="4"/>
+                                <Label id="labelTypeProperty" fx:id="maxNumbOfSpeciesInOneCellLabel"
+                                       styleClass="\\\@../styless/styless.css" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="5"/>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
             </items>
         </SplitPane>
     </children>

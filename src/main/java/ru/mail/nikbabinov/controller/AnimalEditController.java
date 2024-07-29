@@ -1,11 +1,13 @@
 package ru.mail.nikbabinov.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.mail.nikbabinov.fauna.Animal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalEditController {
 
@@ -16,13 +18,6 @@ public class AnimalEditController {
     private Animal animal;
 
     private StartSceneViewController controllerStartScene;
-
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button saveButton;
 
     @FXML
     private TextField ageTextField;
@@ -70,21 +65,50 @@ public class AnimalEditController {
 
     @FXML
     public void saveAnimalProperty() {
-        int age = Integer.parseInt(ageTextField.getText());
-        double weight = Double.parseDouble(weightTextField.getText());
-        int speed = Integer.parseInt(speedTextField.getText());
-        double weightFoodRemoveHunger = Double.parseDouble(weightFoodRemoveHungerTextField.getText());
-        int startNumbOfSpeciesInOneCell = Integer.parseInt(startNumbOfSpeciesInOneCellTextField.getText());
-        int maxNumbOfSpeciesInOneCell = Integer.parseInt(maxNumbOfSpeciesInOneCellTextField.getText());
 
-        this.animal.setAge(age);
-        this.animal.setWeight(weight);
-        this.animal.setSpeed(speed);
-        this.animal.setWeightFoodRemoveHunger(weightFoodRemoveHunger);
-        this.animal.setStartNumbOfSpeciesInOneCell(startNumbOfSpeciesInOneCell);
-        this.animal.setMaxNumbOfSpeciesInOneCell(maxNumbOfSpeciesInOneCell);
-        controllerStartScene.showAnimalProperty(animal);
-        dialogStage.close();
+        List<TextField> textFields = new ArrayList<>();
+        textFields.add(ageTextField);
+        textFields.add(weightTextField);
+        textFields.add(speedTextField);
+        textFields.add(weightFoodRemoveHungerTextField);
+        textFields.add(maxNumbOfSpeciesInOneCellTextField);
+        textFields.add(startNumbOfSpeciesInOneCellTextField);
+
+        if (checkFieldIsNumber(textFields)) {
+            animal.setAge(Integer.parseInt(ageTextField.getText()));
+            animal.setWeight(Double.parseDouble(weightTextField.getText()));
+            animal.setSpeed(Integer.parseInt(speedTextField.getText()));
+            animal.setWeightFoodRemoveHunger(Double.parseDouble(weightFoodRemoveHungerTextField.getText()));
+            animal.setMaxNumbOfSpeciesInOneCell(Integer.parseInt(maxNumbOfSpeciesInOneCellTextField.getText()));
+            animal.setStartNumbOfSpeciesInOneCell(Integer.parseInt(startNumbOfSpeciesInOneCellTextField.getText()));
+            controllerStartScene.showAnimalProperty(animal);
+            dialogStage.close();
+        } else {
+            viewErrorField(textFields);
+        }
+    }
+
+    private void viewErrorField(List<TextField> textFields) {
+        for (TextField textField : textFields) {
+            if (!isInteger(textField)) {
+                textField.setStyle("-fx-background-color: #FF69B4");
+            } else {
+                textField.setStyle("-fx-background-color: white");
+            }
+        }
+    }
+
+    private Boolean checkFieldIsNumber(List<TextField> textFields) {
+        for (TextField textField : textFields) {
+            if (!isInteger(textField)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Boolean isInteger(TextField textField) {
+        return textField.getText().matches("^[0-9]+\\.?[0-9]*$");
     }
 
 }

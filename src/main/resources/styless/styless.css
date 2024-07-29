@@ -51,6 +51,7 @@
     -fx-font-size: 10.5;
 }
 
+
 .buttonDellAnimal:hover {
     -fx-background-color: rgb(255, 182, 193);
 }
