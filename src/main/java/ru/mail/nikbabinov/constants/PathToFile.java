@@ -1,5 +1,7 @@
 package ru.mail.nikbabinov.constants;
 
+import java.nio.file.Path;
+
 public enum PathToFile {
     CONFIG_FILE("src/main/java/ru/mail/nikbabinov/config.txt"),
     ;
@@ -12,6 +14,7 @@ public enum PathToFile {
     }
 
     public String getPath() {
-        return path;
+        Path path = Path.of(this.path);
+        return path.toAbsolutePath().toString();
     }
 }
