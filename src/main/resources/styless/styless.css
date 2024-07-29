@@ -36,6 +36,21 @@
     -fx-translate-x: 900;
 }
 
+.buttonEditAnimal {
+    -fx-translate-y: 685;
+    -fx-translate-x: 748;
+}
+
+#buttonSaveEditProperty, #buttonCancelEditProperty {
+    -fx-min-width: 70;
+    -fx-font-size: 10;
+    -fx-padding: 4px;
+}
+
+#buttonSaveEditProperty:hover, #buttonCancelEditProperty:hover {
+    -fx-font-size: 10.5;
+}
+
 .buttonDellAnimal:hover {
     -fx-background-color: rgb(255, 182, 193);
 }
@@ -67,7 +82,7 @@
     -fx-border-width: 0 0 1px 0;
 }
 
-#labelTypeProperty {
+.label {
     -fx-font-size: 14;
     -fx-font-weight: 900;
 }

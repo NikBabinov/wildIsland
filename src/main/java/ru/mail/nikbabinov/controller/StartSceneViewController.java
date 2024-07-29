@@ -53,7 +53,7 @@ public class StartSceneViewController {
     }
 
 
-    private void showAnimalProperty(Animal animal) {
+    public void showAnimalProperty(Animal animal) {
         if (animal != null) {
             ageLabel.setText(String.valueOf(animal.getAge()));
             weightLabel.setText(String.valueOf(animal.getWeight()));
@@ -61,7 +61,7 @@ public class StartSceneViewController {
             weightFoodRemoveHungerLabel.setText(String.valueOf(animal.getWeightFoodRemoveHunger()));
             startNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getStartNumbOfSpeciesInOneCell()));
             maxNumbOfSpeciesInOneCellLabel.setText(String.valueOf(animal.getMaxNumbOfSpeciesInOneCell()));
-            view.showDellAnimalButton(tableAnimals);
+            view.showEditAnimalButtons(tableAnimals);
 
         } else {
             ageLabel.setText("");
