@@ -2,7 +2,6 @@ package ru.mail.nikbabinov.app;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
@@ -36,7 +35,8 @@ public class MainApplication {
     public ObservableList<Animal> createAllAnimalPopulation(ObservableList<Animal> animalObservableList) {
         ObservableList<Animal> allAnimalPopulation = FXCollections.observableArrayList();
         for (Animal animal : animalObservableList) {
-            for (int i = 0; i < animal.getStartNumbOfSpeciesInOneCell(); i++) {
+            int randomNumberAnimalInOneCell = ThreadLocalRandom.current().nextInt(animal.getStartNumbOfSpeciesInOneCell(), animal.getMaxNumbOfSpeciesInOneCell() + 1);
+            for (int i = 0; i < randomNumberAnimalInOneCell; i++) {
                 Animal copyAnimal = copyAnimal(animal);
                 allAnimalPopulation.add(copyAnimal);
             }

@@ -208,7 +208,6 @@ public class View extends Application {
     }
 
     private void addLabelAnimalInGridPane(int colIndex, int rowIndex, GridPane gridPane, Map<String, Integer> animals) {
-
         Pane pane = new Pane();
         double fxTranslateY = 0;
         for (Map.Entry<String, Integer> _ : animals.entrySet()) {
