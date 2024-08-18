@@ -132,9 +132,21 @@ public class View extends Application {
         for (Node node : childrenGridPane) {
             if (node instanceof Pane pane) {
                 pane.setOnMouseClicked(event -> {
-                    System.out.printf("Mouse enetered cell [%d, %d]%n", (GridPane.getRowIndex(node)), GridPane.getColumnIndex(node));
+                    showDetailInformationOfAnimalOneCell(GridPane.getRowIndex(node), GridPane.getColumnIndex(node));
                 });
             }
+        }
+    }
+
+    private void showDetailInformationOfAnimalOneCell(Integer rowIndex, Integer columnIndex) {
+
+        ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell =
+                mainApplication.getDetailInformationOfAnimalOneCell(rowIndex, columnIndex, ScaleViewProperty.MAIN_WILD_ISLAND_STAGE);
+
+        try {
+            showWildIsland(detailInformationOfAnimalOneCell);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

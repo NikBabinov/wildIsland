@@ -135,6 +135,53 @@ public class MainApplication {
         return scaleStatisticalNumberAnimalsInMap;
     }
 
+    public ConcurrentHashMap<String, Map<String, Integer>> getDetailInformationOfAnimalOneCell(Integer rowIndex, Integer columnIndex, ScaleViewProperty scaleViewProperty) {
+        int scale = scaleViewProperty.getScale();
+        ConcurrentHashMap<String, Map<String, Integer>> statisticalNumberAnimalsInMap = getStatisticalNumberAnimalsInMap();
+        ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell = new ConcurrentHashMap<>();
+        int row = rowIndex * scale;
+        int rowScale = row + scale;
+        int column = columnIndex * scale;
+        int columnScale = column + scale;
+        int rowInDetailInformation = 0;
+        int columnInDetailInformation = 0;
+        for (int rowNumber = row; rowNumber < rowScale; rowNumber++) {
+            for (int columnNumber = column; columnNumber < columnScale; columnNumber++) {
+                Map<String, Integer> animalsOneCell = statisticalNumberAnimalsInMap.get(rowNumber + ":" + columnNumber);
+                detailInformationOfAnimalOneCell.put(rowInDetailInformation + ":" + columnInDetailInformation, animalsOneCell);
+                columnInDetailInformation++;
+            }
+            columnInDetailInformation = 0;
+            rowInDetailInformation++;
+        }
+        return getDetailInformationOfAnimalScaleOneTOTwoForHeight(detailInformationOfAnimalOneCell);
+    }
+
+    private ConcurrentHashMap<String, Map<String, Integer>> getDetailInformationOfAnimalScaleOneTOTwoForHeight(ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell) {
+        ConcurrentHashMap<String, Map<String, Integer>> scaleAnimals = new ConcurrentHashMap<>();
+        for (Map.Entry<String, Map<String, Integer>> entryAnimals : detailInformationOfAnimalOneCell.entrySet()) {
+            String[] keys = entryAnimals.getKey().split(":");
+            int rowAnimals = Integer.parseInt(keys[0]);
+            int columnAnimals = Integer.parseInt(keys[1]);
+            int rowAnimalsScale = (rowAnimals >= 5) ? 1 : 0;
+            Map<String, Integer> oneAnimal = entryAnimals.getValue();
+            if (!scaleAnimals.containsKey(rowAnimalsScale + ":" + columnAnimals)) {
+                scaleAnimals.put(rowAnimalsScale + ":" + columnAnimals, entryAnimals.getValue());
+            } else {
+                Map<String, Integer> oneCellProperty = scaleAnimals.get(rowAnimalsScale + ":" + columnAnimals);
+                for (Map.Entry<String, Integer> entry : oneCellProperty.entrySet()) {
+                    for (Map.Entry<String, Integer> oneCell : oneAnimal.entrySet()) {
+                        if (entry.getKey().equals(oneCell.getKey())) {
+                            oneCellProperty.put(oneCell.getKey(), oneCell.getValue() + entry.getValue());
+                        }
+                    }
+                }
+            }
+
+        }
+        return scaleAnimals;
+    }
+
     private static Map<String, Integer> getScaleAnimalProprieties(Map<String, Integer> animalProprieties) {
         Map<String, Integer> scaleAnimalProprieties = new HashMap<>();
         for (Map.Entry<String, Integer> entryAnimals : animalProprieties.entrySet()) {
