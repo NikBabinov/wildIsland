@@ -14,14 +14,22 @@ import java.io.IOException;
 public class ConfigApplication {
     private static final ObservableList<Animal> animals = FXCollections.observableArrayList();
 
+    public static int getSizeIsland(String widthOrHeight) {
+        String configFile = ConfigApplication.getConfigFile();
+        String[] field = configFile.substring(configFile.indexOf("<sizeField>") + 10, configFile.indexOf("</sizeField>")).split("\\|");
+        return getWidthOrHeight(field, widthOrHeight);
+    }
+
     public static int getSizeWindow(String widthOrHeight) {
         String configFile = ConfigApplication.getConfigFile();
         String[] view = configFile.substring(configFile.indexOf("<view>") + 7, configFile.indexOf("</view>")).split("\\|");
-        int width = Integer.parseInt((view[0].substring(view[0].indexOf(":") + 1).trim()));
-        int height = Integer.parseInt((view[1].substring(view[1].indexOf(":") + 1).trim()));
-        return switch (widthOrHeight) {
-            case "width" -> width;
-            case "height" -> height;
+        return getWidthOrHeight(view, widthOrHeight);
+    }
+
+    private static int getWidthOrHeight(String[] widthAndHeight, String widthOrHeightName) {
+        return switch (widthOrHeightName) {
+            case "width" -> Integer.parseInt((widthAndHeight[0].substring(widthAndHeight[0].indexOf(":") + 1).trim()));
+            case "height" -> Integer.parseInt((widthAndHeight[1].substring(widthAndHeight[1].indexOf(":") + 1).trim()));
             default -> 0;
         };
     }

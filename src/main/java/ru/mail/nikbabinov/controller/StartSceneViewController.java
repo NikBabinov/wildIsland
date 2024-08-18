@@ -1,11 +1,15 @@
 package ru.mail.nikbabinov.controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ru.mail.nikbabinov.fauna.Animal;
 import ru.mail.nikbabinov.view.View;
 
+import java.io.IOException;
+
 public class StartSceneViewController {
+    private ObservableList<Animal> animals;
 
     private View view;
 
@@ -17,12 +21,6 @@ public class StartSceneViewController {
 
     @FXML
     private Label speedLabel;
-
-    @FXML
-    private SplitPane splitPane;
-
-    @FXML
-    private Button startButton;
 
     @FXML
     private Label startNumbOfSpeciesInOneCellLabel;
@@ -47,9 +45,15 @@ public class StartSceneViewController {
                 (observable, oldValue, newValue) -> showAnimalProperty(newValue));
     }
 
+    @FXML
+    public void startIslandEmulation() throws IOException {
+        view.startIslandEmulation(animals);
+    }
+
     public void setApplication(View view) {
         this.view = view;
-        tableAnimals.setItems(view.getObservableListAnimal());
+        this.animals = view.getObservableListAnimal();
+        tableAnimals.setItems(animals);
     }
 
 

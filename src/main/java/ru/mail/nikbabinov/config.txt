@@ -140,3 +140,7 @@
 <view>
 width : 1200 | height : 800
 </view>
+
+<sizeField>
+width : 100| height : 20
+</sizeField>

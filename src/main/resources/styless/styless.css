@@ -73,7 +73,6 @@
 }
 
 #mainMenu_vueTableAnimals {
-    -fx-background-color: 0, 0, 0, 0;
 }
 
 #labelHeaderPropertyAnimalTable {
@@ -83,7 +82,97 @@
     -fx-border-width: 0 0 1px 0;
 }
 
+#imageUnicodeAnimal{
+    -fx-translate-x: 15;
+}
+
+#statisticalTotalNumberAnimal{
+    -fx-translate-x: 40;
+}
+
 .label {
     -fx-font-size: 14;
     -fx-font-weight: 900;
+}
+
+.Bear {
+    -fx-text-fill: brown;
+}
+
+.BoaConstrictor {
+    -fx-text-fill: darkGreen;
+}
+
+.Buffalo {
+    -fx-text-fill: #B8860B;
+}
+
+.Caterpillar {
+    -fx-text-fill: #006400;
+}
+
+.Deer {
+    -fx-text-fill: #B8860B;
+}
+
+.Duck {
+    -fx-text-fill: #DAA520;
+}
+
+.Eagle {
+    -fx-text-fill: #8B4513;
+}
+
+.Fox {
+    -fx-text-fill: orange;
+}
+
+.Goat {
+    -fx-text-fill: #778899;
+}
+
+.Horse {
+    -fx-text-fill: #DEB887;
+}
+
+.Mouse {
+    -fx-text-fill: #F4A460;
+}
+
+.Rabbit {
+    -fx-text-fill: #A9A9A9;
+}
+
+.Sheep {
+    -fx-text-fill: #696969;
+}
+
+.WildBoar {
+    -fx-text-fill: #5F9EA0;
+}
+
+.Wolf {
+    -fx-text-fill: black;
+}
+
+.Animals {
+    -fx-font-size: 18;
+    -fx-translate-x: 5;
+}
+
+.GridPane {
+    -fx-background-image: url("/images/wildIslandMap.png");
+}
+
+.Pane {
+    -fx-border-style: solid;
+    -fx-border-width: 1 1;
+    -fx-border-color: grey;
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+}
+
+.LabelStatistical {
+    -fx-min-width: 30;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
 }
