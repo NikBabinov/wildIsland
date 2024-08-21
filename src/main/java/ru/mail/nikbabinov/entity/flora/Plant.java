@@ -1,4 +1,4 @@
-package ru.mail.nikbabinov.flora;
+package ru.mail.nikbabinov.entity.flora;
 
 public class Plant {
     private int weight;

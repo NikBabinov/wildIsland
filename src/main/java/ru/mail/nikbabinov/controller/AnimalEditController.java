@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.entity.fauna.Animal;
 
 import java.util.ArrayList;
 import java.util.List;

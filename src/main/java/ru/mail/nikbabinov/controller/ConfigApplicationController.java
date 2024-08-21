@@ -1,27 +1,27 @@
-package ru.mail.nikbabinov.entity;
+package ru.mail.nikbabinov.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.mail.nikbabinov.constants.PathToFile;
-import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.entity.fauna.Animal;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ConfigApplication {
+public class ConfigApplicationController {
     private static final ObservableList<Animal> animals = FXCollections.observableArrayList();
 
     public static int getSizeIsland(String widthOrHeight) {
-        String configFile = ConfigApplication.getConfigFile();
+        String configFile = ConfigApplicationController.getConfigFile();
         String[] field = configFile.substring(configFile.indexOf("<sizeField>") + 10, configFile.indexOf("</sizeField>")).split("\\|");
         return getWidthOrHeight(field, widthOrHeight);
     }
 
     public static int getSizeWindow(String widthOrHeight) {
-        String configFile = ConfigApplication.getConfigFile();
+        String configFile = ConfigApplicationController.getConfigFile();
         String[] view = configFile.substring(configFile.indexOf("<view>") + 7, configFile.indexOf("</view>")).split("\\|");
         return getWidthOrHeight(view, widthOrHeight);
     }
@@ -35,7 +35,7 @@ public class ConfigApplication {
     }
 
     public static ObservableList<Animal> getObservableListAnimals() {
-        String configApplication = ConfigApplication.getConfigFile();
+        String configApplication = ConfigApplicationController.getConfigFile();
         String[] animalList = configApplication.substring(configApplication.indexOf("<animalList>") + 13, configApplication.indexOf("</animalList>")).split("\\|");
         for (String animalString : animalList) {
             Animal animal;

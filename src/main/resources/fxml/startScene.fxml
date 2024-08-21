@@ -23,7 +23,7 @@
         </ImageView>
         <Text id="mainMenu_header" layoutX="393.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="@../styless/styless.css" text="Добро пожаловать на остров" wrappingWidth="414.1367492675781" />
         <Text id="mainMenu_headerMenu" layoutX="231.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="@../styless/styless.css" text="пожалуйста введите начальные параметры острова или оставь по умолчанию и погружайся в увлекательный мир дикой природы" wrappingWidth="756.2489318847656" />
-        <Button id="mainMenu_buttonStart" fx:id="startButton" layoutX="1033.0" layoutY="685.0" mnemonicParsing="false" onAction="#startIslandEmulation" styleClass="@../styless/styless.css" text="Старт" />
+        <Button id="mainMenu_buttonStart" fx:id="startButton" layoutX="978.0" layoutY="685.0" mnemonicParsing="false" onAction="#startIslandEmulation" styleClass="@../styless/styless.css" text="Заселить остров" />
         <SplitPane id="mainMenu_splitPane" fx:id="splitPane" dividerPositions="0.19123641304347827" layoutX="14.0" layoutY="241.0" prefHeight="434.0" prefWidth="1180.0" styleClass="..\styless\styless.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

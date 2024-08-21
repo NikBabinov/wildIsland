@@ -1,13 +1,12 @@
-package ru.mail.nikbabinov.fauna;
-
+package ru.mail.nikbabinov.entity.fauna;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Goat extends Animal implements HerbivorousAnimal {
+public class Wolf extends Animal implements PredatoryAnimal {
 
     @JsonCreator()
-    public Goat(@JsonProperty("name") String name,
+    public Wolf(@JsonProperty("name") String name,
                 @JsonProperty("age") int age,
                 @JsonProperty("weight") double weight,
                 @JsonProperty("speed") int speed,

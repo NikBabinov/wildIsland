@@ -2,15 +2,18 @@ package ru.mail.nikbabinov.app;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import ru.mail.nikbabinov.constants.ScaleViewProperty;
-import ru.mail.nikbabinov.entity.ConfigApplication;
-import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.controller.AnimalActionController;
+import ru.mail.nikbabinov.controller.ConfigApplicationController;
+import ru.mail.nikbabinov.entity.fauna.Animal;
 import ru.mail.nikbabinov.view.View;
 
-import java.util.HashMap;
+import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -24,7 +27,7 @@ public class MainApplication {
     }
 
     public ObservableList<Animal> getObservableListAnimal() {
-        return ConfigApplication.getObservableListAnimals();
+        return ConfigApplicationController.getObservableListAnimals();
     }
 
     public void removeAnimalInList(TableView<Animal> tableAnimals) {
@@ -46,7 +49,7 @@ public class MainApplication {
 
     private Animal copyAnimal(Animal animal) {
         ObjectMapper mapper = new ObjectMapper();
-        Animal copyAnimal = null;
+        Animal copyAnimal;
         try {
             String animalJson = mapper.writeValueAsString(animal);
             copyAnimal = new ObjectMapper().readValue(animalJson, Animal.class);
@@ -56,26 +59,21 @@ public class MainApplication {
         return copyAnimal;
     }
 
-    public ConcurrentHashMap<String, Map<String, Integer>> getMapAnimalWildIsland(ScaleViewProperty scaleViewProperty) {
+    public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getMapAnimalWildIsland(ScaleViewProperty scaleViewProperty) {
         return getScopeStatisticalNumberAnimalsInMap(scaleViewProperty.getScale());
     }
 
     public void initAnimalWildIsland(ObservableList<Animal> animalObservableList) {
 
         ExecutorService executor = Executors.newWorkStealingPool();
-        int widthIsland = ConfigApplication.getSizeIsland("width");
-        int heightIsland = ConfigApplication.getSizeIsland("height");
+        int widthIsland = ConfigApplicationController.getSizeIsland("width");
+        int heightIsland = ConfigApplicationController.getSizeIsland("height");
         wildIslandMap = new ConcurrentHashMap<>();
         for (int row = 0; row < heightIsland; row++) {
             for (int column = 0; column < widthIsland; column++) {
                 int finalRow = row;
                 int finalColumn = column;
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        wildIslandMap.put(finalRow + ":" + finalColumn, createAllAnimalPopulation(animalObservableList));
-                    }
-                });
+                executor.execute(() -> wildIslandMap.put(finalRow + ":" + finalColumn, createAllAnimalPopulation(animalObservableList)));
             }
         }
         executor.shutdown();
@@ -89,12 +87,20 @@ public class MainApplication {
         }
     }
 
-    public ConcurrentHashMap<String, Map<String, Integer>> getStatisticalNumberAnimalsInMap() {
-        ConcurrentHashMap<String, Map<String, Integer>> numberAnimalOneCellMap = new ConcurrentHashMap<>();
+    synchronized public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getStatisticalNumberAnimalsInMap() {
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> numberAnimalOneCellMap = new ConcurrentHashMap<>();
         for (Map.Entry<String, ObservableList<Animal>> entry : wildIslandMap.entrySet()) {
+            ConcurrentHashMap<String, Integer> animalPopulation = getStringIntegerConcurrentHashMap(entry);
+            String key = entry.getKey();
+            numberAnimalOneCellMap.put(key, animalPopulation);
+        }
+        return numberAnimalOneCellMap;
+    }
+
+    private static ConcurrentHashMap<String, Integer> getStringIntegerConcurrentHashMap(Map.Entry<String, ObservableList<Animal>> entry) {
+        synchronized (wildIslandMap) {
             ConcurrentHashMap<String, Integer> animalPopulation = new ConcurrentHashMap<>();
             ObservableList<Animal> animalProprieties = entry.getValue();
-            String key = entry.getKey();
             for (Animal animal : animalProprieties) {
                 String keyNameAnimal = animal.getClass().getSimpleName();
                 if (!animalPopulation.containsKey(keyNameAnimal)) {
@@ -102,43 +108,49 @@ public class MainApplication {
                 } else {
                     animalPopulation.put(keyNameAnimal, animalPopulation.get(keyNameAnimal) + 1);
                 }
-
             }
-            numberAnimalOneCellMap.put(key, animalPopulation);
+
+            return animalPopulation;
         }
-        return numberAnimalOneCellMap;
     }
 
-    public ConcurrentHashMap<String, Map<String, Integer>> getScopeStatisticalNumberAnimalsInMap(int scale) {
-
-        ConcurrentHashMap<String, Map<String, Integer>> statisticalNumberAnimalsInMap = getStatisticalNumberAnimalsInMap();
-        ConcurrentHashMap<String, Map<String, Integer>> scaleStatisticalNumberAnimalsInMap = new ConcurrentHashMap<>();
-        for (Map.Entry<String, Map<String, Integer>> entry : statisticalNumberAnimalsInMap.entrySet()) {
+    public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getScopeStatisticalNumberAnimalsInMap(int scale) {
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> statisticalNumberAnimalsInMap = getStatisticalNumberAnimalsInMap();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> scaleStatisticalNumberAnimalsInMap = new ConcurrentHashMap<>();
+        for (Map.Entry<String, ConcurrentHashMap<String, Integer>> entry : statisticalNumberAnimalsInMap.entrySet()) {
+            ConcurrentHashMap<String, Integer> animalProprieties = entry.getValue();
             String[] keys = entry.getKey().split(":");
-            Map<String, Integer> animalProprieties = entry.getValue();
             int row = Integer.parseInt(keys[0]);
             int column = Integer.parseInt(keys[1]);
             int rowScale = row / scale;
             int columnScale = column / scale;
-            Map<String, Integer> scaleAnimalProprieties = getScaleAnimalProprieties(animalProprieties);
+
             if (!scaleStatisticalNumberAnimalsInMap.containsKey(rowScale + ":" + columnScale)) {
-                scaleStatisticalNumberAnimalsInMap.put(rowScale + ":" + columnScale, scaleAnimalProprieties);
+                scaleStatisticalNumberAnimalsInMap.put(rowScale + ":" + columnScale, animalProprieties);
             } else {
-                Map<String, Integer> scalePropertyAnimal = scaleStatisticalNumberAnimalsInMap.get(rowScale + ":" + columnScale);
-                for (Map.Entry<String, Integer> entryAnimals : animalProprieties.entrySet()) {
-                    String keyNameAnimal = entryAnimals.getKey();
-                    int valueNumberAnimal = entryAnimals.getValue();
-                    scalePropertyAnimal.put(keyNameAnimal, scalePropertyAnimal.get(keyNameAnimal) + valueNumberAnimal);
+                ConcurrentHashMap<String, Integer> animalInScaleMapOneCell = scaleStatisticalNumberAnimalsInMap.get(rowScale + ":" + columnScale);
+                for (Map.Entry<String, Integer> animal : animalInScaleMapOneCell.entrySet()) {
+                    String keyGetAnimal = animal.getKey();
+                    int numberAnimalOneCell = animal.getValue();
+                    for (Map.Entry<String, Integer> animalEntry : animalProprieties.entrySet()) {
+                        String keyEntryAnimal = animalEntry.getKey();
+                        int valueEntryAnimal = animalEntry.getValue();
+                        if (keyEntryAnimal.equalsIgnoreCase(keyGetAnimal)) {
+                            int sumAnimalInOneCell = numberAnimalOneCell + valueEntryAnimal;
+                            scaleStatisticalNumberAnimalsInMap.get(rowScale + ":" + columnScale).put(keyGetAnimal, sumAnimalInOneCell);
+                        }
+
+                    }
                 }
             }
         }
         return scaleStatisticalNumberAnimalsInMap;
     }
 
-    public ConcurrentHashMap<String, Map<String, Integer>> getDetailInformationOfAnimalOneCell(Integer rowIndex, Integer columnIndex, ScaleViewProperty scaleViewProperty) {
+    public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getDetailInformationOfAnimalOneCell(Integer rowIndex, Integer columnIndex, ScaleViewProperty scaleViewProperty) {
         int scale = scaleViewProperty.getScale();
-        ConcurrentHashMap<String, Map<String, Integer>> statisticalNumberAnimalsInMap = getStatisticalNumberAnimalsInMap();
-        ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> statisticalNumberAnimalsInMap = getStatisticalNumberAnimalsInMap();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> detailInformationOfAnimalOneCell = new ConcurrentHashMap<>();
         int row = rowIndex * scale;
         int rowScale = row + scale;
         int column = columnIndex * scale;
@@ -147,7 +159,7 @@ public class MainApplication {
         int columnInDetailInformation = 0;
         for (int rowNumber = row; rowNumber < rowScale; rowNumber++) {
             for (int columnNumber = column; columnNumber < columnScale; columnNumber++) {
-                Map<String, Integer> animalsOneCell = statisticalNumberAnimalsInMap.get(rowNumber + ":" + columnNumber);
+                ConcurrentHashMap<String, Integer> animalsOneCell = statisticalNumberAnimalsInMap.get(rowNumber + ":" + columnNumber);
                 detailInformationOfAnimalOneCell.put(rowInDetailInformation + ":" + columnInDetailInformation, animalsOneCell);
                 columnInDetailInformation++;
             }
@@ -157,9 +169,9 @@ public class MainApplication {
         return getDetailInformationOfAnimalScaleOneTOTwoForHeight(detailInformationOfAnimalOneCell);
     }
 
-    private ConcurrentHashMap<String, Map<String, Integer>> getDetailInformationOfAnimalScaleOneTOTwoForHeight(ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell) {
-        ConcurrentHashMap<String, Map<String, Integer>> scaleAnimals = new ConcurrentHashMap<>();
-        for (Map.Entry<String, Map<String, Integer>> entryAnimals : detailInformationOfAnimalOneCell.entrySet()) {
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getDetailInformationOfAnimalScaleOneTOTwoForHeight(ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> detailInformationOfAnimalOneCell) {
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> scaleAnimals = new ConcurrentHashMap<>();
+        for (ConcurrentHashMap.Entry<String, ConcurrentHashMap<String, Integer>> entryAnimals : detailInformationOfAnimalOneCell.entrySet()) {
             String[] keys = entryAnimals.getKey().split(":");
             int rowAnimals = Integer.parseInt(keys[0]);
             int columnAnimals = Integer.parseInt(keys[1]);
@@ -182,17 +194,34 @@ public class MainApplication {
         return scaleAnimals;
     }
 
-    private static Map<String, Integer> getScaleAnimalProprieties(Map<String, Integer> animalProprieties) {
-        Map<String, Integer> scaleAnimalProprieties = new HashMap<>();
-        for (Map.Entry<String, Integer> entryAnimals : animalProprieties.entrySet()) {
-            String keyNameAnimal = entryAnimals.getKey();
-            int valueNumberAnimal = entryAnimals.getValue();
-            if (!scaleAnimalProprieties.containsKey(keyNameAnimal)) {
-                scaleAnimalProprieties.put(keyNameAnimal, valueNumberAnimal);
-            } else {
-                scaleAnimalProprieties.put(keyNameAnimal, scaleAnimalProprieties.get(keyNameAnimal) + valueNumberAnimal);
+    public void runLifeAnimal(GridPane gridPaneFieldAnimal) {
+        int threadCount = (ManagementFactory.getThreadMXBean().getThreadCount()) / 4;
+        ScheduledExecutorService executorField = Executors.newScheduledThreadPool(threadCount);
+        executorField.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.fillGridPane(gridPaneFieldAnimal, getMapAnimalWildIsland(ScaleViewProperty.MAIN_WILD_ISLAND_STAGE));
+                    }
+                });
+
+            }
+        }, 0, 500, TimeUnit.MILLISECONDS);
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(threadCount);
+        synchronized (wildIslandMap){
+            for (Map.Entry<String, ObservableList<Animal>> animalsInCelField : wildIslandMap.entrySet()) {
+                for (Animal animal : animalsInCelField.getValue()) {
+                    executorService.scheduleAtFixedRate(new Runnable() {
+                        @Override
+                        public void run() {
+                            AnimalActionController.animalMove(animal, animalsInCelField.getKey(), wildIslandMap);
+                        }
+                    }, 0L, 100, TimeUnit.MILLISECONDS);
+                }
             }
         }
-        return scaleAnimalProprieties;
     }
 }

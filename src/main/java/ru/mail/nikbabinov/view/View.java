@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -22,8 +21,8 @@ import ru.mail.nikbabinov.constants.ViewText;
 import ru.mail.nikbabinov.controller.AnimalEditController;
 import ru.mail.nikbabinov.controller.StartSceneViewController;
 import ru.mail.nikbabinov.controller.WildIslandController;
-import ru.mail.nikbabinov.entity.ConfigApplication;
-import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.controller.ConfigApplicationController;
+import ru.mail.nikbabinov.entity.fauna.Animal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +38,8 @@ public class View extends Application {
     private Stage wildIslandStage;
     private Stage awaitStage;
     private StartSceneViewController controllerStartScene;
+    private static boolean isAddEventHandlerToGridPane = false;
+    private GridPane gridPaneFieldAnimal;
 
     public void applicationRun() {
         Application.launch();
@@ -53,7 +54,7 @@ public class View extends Application {
         setSceneStartStage(startStage);
     }
 
-    public void showWildIsland(ConcurrentHashMap<String, Map<String, Integer>> mapAnimalWildIsland) throws IOException {
+    public void showWildIsland(ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> mapAnimalWildIsland) throws IOException {
         wildIslandStage = new Stage();
         setSizeStartStage(wildIslandStage);
         setTitleStartStage(wildIslandStage);
@@ -86,8 +87,8 @@ public class View extends Application {
     }
 
     private void setSizeStartStage(Stage StartStage) {
-        StartStage.setWidth(ConfigApplication.getSizeWindow("width"));
-        StartStage.setHeight(ConfigApplication.getSizeWindow("height"));
+        StartStage.setWidth(ConfigApplicationController.getSizeWindow("width"));
+        StartStage.setHeight(ConfigApplicationController.getSizeWindow("height"));
         StartStage.setResizable(false);
     }
 
@@ -113,14 +114,19 @@ public class View extends Application {
         startStage.show();
     }
 
-    private void setSceneWildIsland(Stage wildIslandStage, ConcurrentHashMap<String, Map<String, Integer>> mapAnimalWildIsland) throws IOException {
+    private void setSceneWildIsland(Stage wildIslandStage, ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> mapAnimalWildIsland) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/wildIsland.fxml"));
         BorderPane page = (BorderPane) loader.load();
-        GridPane gridPane = createGridPane(mapAnimalWildIsland);
-        fillGridPane(gridPane, mapAnimalWildIsland);
-        addEventHandlerToGridPane(gridPane);
-        page.setCenter(gridPane);
+        gridPaneFieldAnimal = createGridPane(mapAnimalWildIsland);
+        fillGridPane(gridPaneFieldAnimal, mapAnimalWildIsland);
+
+        if (!isAddEventHandlerToGridPane) {
+            addEventHandlerToGridPane(gridPaneFieldAnimal);
+            showStartButton(page,gridPaneFieldAnimal);
+            isAddEventHandlerToGridPane = true;
+        }
+        page.setCenter(gridPaneFieldAnimal);
         WildIslandController controller = loader.getController();
         wildIslandStage.setScene(new Scene(page));
         wildIslandStage.show();
@@ -140,7 +146,7 @@ public class View extends Application {
 
     private void showDetailInformationOfAnimalOneCell(Integer rowIndex, Integer columnIndex) {
 
-        ConcurrentHashMap<String, Map<String, Integer>> detailInformationOfAnimalOneCell =
+        ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> detailInformationOfAnimalOneCell =
                 mainApplication.getDetailInformationOfAnimalOneCell(rowIndex, columnIndex, ScaleViewProperty.MAIN_WILD_ISLAND_STAGE);
 
         try {
@@ -150,16 +156,16 @@ public class View extends Application {
         }
     }
 
-    private void fillGridPane(GridPane gridPane, ConcurrentHashMap<String, Map<String, Integer>> mapAnimalWildIsland) {
+    public void fillGridPane(GridPane gridPane, ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> mapAnimalWildIsland) {
         ObservableList<Node> childrenGridPane = gridPane.getChildrenUnmodifiable();
         for (Node node : childrenGridPane) {
             if (node instanceof Pane pane) {
-                Map<String, Integer> animals = mapAnimalWildIsland.get((GridPane.getRowIndex(node)) + ":" + GridPane.getColumnIndex(node));
+                ConcurrentHashMap<String, Integer> animals = mapAnimalWildIsland.get((GridPane.getRowIndex(node)) + ":" + GridPane.getColumnIndex(node));
                 List<Node> label = pane.getChildren().stream().filter(c -> c instanceof Label).toList();
                 List<Label> labelImageUnicodeAnimal = getLabelImageUnicodeAnimal(label);
                 List<Label> labelStatisticalTotalNumberAnimal = getLabelStatisticalTotalNumberAnimal(label);
                 int iterator = 0;
-                for (Map.Entry<String, Integer> animal : animals.entrySet()) {
+                for (ConcurrentHashMap.Entry<String, Integer> animal : animals.entrySet()) {
                     String typeAnimal = animal.getKey();
                     labelImageUnicodeAnimal.get(iterator).getStyleClass().add(typeAnimal);
                     labelImageUnicodeAnimal.get(iterator).getStyleClass().add("Animals");
@@ -194,11 +200,11 @@ public class View extends Application {
         return labels;
     }
 
-    private GridPane createGridPane(ConcurrentHashMap<String, Map<String, Integer>> mapAnimalWildIsland) {
+    private GridPane createGridPane(ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> mapAnimalWildIsland) {
         GridPane gridPane = new GridPane();
         gridPane.getStyleClass().add("GridPane");
-        int numColumns = ConfigApplication.getSizeIsland("width") / ScaleViewProperty.MAIN_WILD_ISLAND_STAGE.getScale();
-        int numRows = ConfigApplication.getSizeIsland("height") / ScaleViewProperty.MAIN_WILD_ISLAND_STAGE.getScale();
+        int numColumns = ConfigApplicationController.getSizeIsland("width") / ScaleViewProperty.MAIN_WILD_ISLAND_STAGE.getScale();
+        int numRows = ConfigApplicationController.getSizeIsland("height") / ScaleViewProperty.MAIN_WILD_ISLAND_STAGE.getScale();
         for (int i = 0; i < numColumns; i++) {
             ColumnConstraints colConstraints = new ColumnConstraints();
             colConstraints.setHgrow(Priority.SOMETIMES);
@@ -238,6 +244,19 @@ public class View extends Application {
         gridPane.add(pane, colIndex, rowIndex);
     }
 
+    public void showStartButton(BorderPane borderPane, GridPane gridPaneFieldAnimal) {
+        Button startButton = new Button("Старт");
+        startButton.getStyleClass().add("Button");
+        startButton.setId("starButton");
+        Pane pane = new Pane();
+        pane.setId("paneBottomIsland");
+        pane.getChildren().add(startButton);
+        startButton.setOnAction(_ ->
+                mainApplication.runLifeAnimal(gridPaneFieldAnimal)
+        );
+        borderPane.setBottom(pane);
+    }
+
 
     public void showEditAnimalButtons(TableView<Animal> tableAnimals) {
         Button dellAnimal = new Button("Удалить");
@@ -259,7 +278,6 @@ public class View extends Application {
 
     public void startIslandEmulation(ObservableList<Animal> animals) throws IOException {
         awaitCreateAnimals();
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

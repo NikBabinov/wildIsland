@@ -33,12 +33,22 @@
 
 .buttonDellAnimal {
     -fx-translate-y: 685;
-    -fx-translate-x: 900;
+    -fx-translate-x: 853;
 }
 
 .buttonEditAnimal {
     -fx-translate-y: 685;
-    -fx-translate-x: 748;
+    -fx-translate-x: 710;
+}
+
+#starButton{
+    -fx-translate-y: 8;
+    -fx-translate-x: 1080;
+}
+
+#paneBottomIsland{
+    -fx-min-height: 70;
+    -fx-background-color: lightgray;
 }
 
 #buttonSaveEditProperty, #buttonCancelEditProperty {

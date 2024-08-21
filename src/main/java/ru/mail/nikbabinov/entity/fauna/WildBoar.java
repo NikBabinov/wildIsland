@@ -1,4 +1,4 @@
-package ru.mail.nikbabinov.fauna;
+package ru.mail.nikbabinov.entity.fauna;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

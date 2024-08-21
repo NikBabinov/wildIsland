@@ -3,7 +3,7 @@ package ru.mail.nikbabinov.controller;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ru.mail.nikbabinov.fauna.Animal;
+import ru.mail.nikbabinov.entity.fauna.Animal;
 import ru.mail.nikbabinov.view.View;
 
 import java.io.IOException;
