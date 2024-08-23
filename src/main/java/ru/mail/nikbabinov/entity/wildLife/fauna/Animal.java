@@ -1,12 +1,14 @@
-package ru.mail.nikbabinov.entity.fauna;
+package ru.mail.nikbabinov.entity.wildLife.fauna;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import javafx.beans.property.*;
+import ru.mail.nikbabinov.entity.wildLife.WildLife;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-@JsonSubTypes({@JsonSubTypes.Type(value = Buffalo.class),
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Buffalo.class),
         @JsonSubTypes.Type(value = Deer.class),
         @JsonSubTypes.Type(value = Horse.class),
         @JsonSubTypes.Type(value = Rabbit.class),
@@ -20,8 +22,10 @@ import javafx.beans.property.*;
         @JsonSubTypes.Type(value = BoaConstrictor.class),
         @JsonSubTypes.Type(value = Bear.class),
         @JsonSubTypes.Type(value = Wolf.class),
-        @JsonSubTypes.Type(value = Eagle.class),})
-public abstract class Animal {
+        @JsonSubTypes.Type(value = Eagle.class),
+})
+public abstract class Animal implements WildLife {
+    private final StringProperty relation;
     private final StringProperty name;
     private final IntegerProperty age;
     private final DoubleProperty weight;
@@ -30,7 +34,8 @@ public abstract class Animal {
     private final IntegerProperty startNumbOfSpeciesInOneCell;
     private final IntegerProperty maxNumbOfSpeciesInOneCell;
 
-    public Animal(String name, int age, double weight, int speed, double weightFoodRemoveHunger, int startNumbOfSpeciesInOneCell, int maxNumbOfSpeciesInOneCell) {
+    public Animal(String relation, String name, int age, double weight, int speed, double weightFoodRemoveHunger, int startNumbOfSpeciesInOneCell, int maxNumbOfSpeciesInOneCell) {
+        this.relation = new SimpleStringProperty(relation);
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
         this.weight = new SimpleDoubleProperty(weight);
@@ -38,6 +43,10 @@ public abstract class Animal {
         this.weightFoodRemoveHunger = new SimpleDoubleProperty(weightFoodRemoveHunger);
         this.startNumbOfSpeciesInOneCell = new SimpleIntegerProperty(startNumbOfSpeciesInOneCell);
         this.maxNumbOfSpeciesInOneCell = new SimpleIntegerProperty(maxNumbOfSpeciesInOneCell);
+    }
+
+    public StringProperty relationProperty() {
+        return relation;
     }
 
     public StringProperty nameProperty() {
@@ -62,6 +71,10 @@ public abstract class Animal {
 
     public IntegerProperty ageProperty() {
         return age;
+    }
+
+    public String getRelation() {
+        return relation.get();
     }
 
     public String getName() {
@@ -92,10 +105,13 @@ public abstract class Animal {
         return maxNumbOfSpeciesInOneCell.get();
     }
 
+    public void setRelation(String relation) {
+        this.relation.set(relation);
+    }
+
     public void setName(String name) {
         this.name.set(name);
     }
-
 
     public void setAge(int age) {
         this.age.set(age);

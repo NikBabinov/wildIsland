@@ -1,6 +1,8 @@
 <animalList>
 {
+  "relation" : "Animal",
   "type" : "Bear",
+  "relation" : "Animal",
   "name" : "Медведь",
   "age" : 0,
   "weight" : 500.0,
@@ -9,15 +11,17 @@
   "startNumbOfSpeciesInOneCell" : 1,
   "maxNumbOfSpeciesInOneCell" : 5
 }|{
+  "relation" : "Animal",
   "type" : "BoaConstrictor",
   "name" : "Удав",
   "age" : 0,
   "weight" : 15.0,
   "speed" : 1,
   "weightFoodRemoveHunger" : 3.0,
-  "startNumbOfSpeciesInOneCell" : 10,
-  "maxNumbOfSpeciesInOneCell" : 30
+  "startNumbOfSpeciesInOneCell" : 5,
+  "maxNumbOfSpeciesInOneCell" : 15
 }|{
+  "relation" : "Animal",
   "type" : "Buffalo",
   "name" : "Буйвол",
   "age" : 0,
@@ -27,15 +31,17 @@
   "startNumbOfSpeciesInOneCell" : 2,
   "maxNumbOfSpeciesInOneCell" : 10
 }|{
+  "relation" : "Animal",
   "type" : "Caterpillar",
   "name" : "Гусеница",
   "age" : 0,
   "weight" : 0.01,
-  "speed" : 0,
+  "speed" : 1,
   "weightFoodRemoveHunger" : 0.0,
-  "startNumbOfSpeciesInOneCell" : 100,
-  "maxNumbOfSpeciesInOneCell" : 1000
+  "startNumbOfSpeciesInOneCell" : 10,
+  "maxNumbOfSpeciesInOneCell" : 30
 }|{
+  "relation" : "Animal",
   "type" : "Deer",
   "name" : "Олень",
   "age" : 0,
@@ -43,44 +49,49 @@
   "speed" : 4,
   "weightFoodRemoveHunger" : 50.0,
   "startNumbOfSpeciesInOneCell" : 5,
-  "maxNumbOfSpeciesInOneCell" : 20
+  "maxNumbOfSpeciesInOneCell" : 15
 }|{
+  "relation" : "Animal",
   "type" : "Duck",
   "name" : "Утка",
   "age" : 0,
   "weight" : 1.0,
   "speed" : 4,
   "weightFoodRemoveHunger" : 0.15,
-  "startNumbOfSpeciesInOneCell" : 20,
-  "maxNumbOfSpeciesInOneCell" : 200
+  "startNumbOfSpeciesInOneCell" : 5,
+  "maxNumbOfSpeciesInOneCell" : 15
 }|{
+  "relation" : "Animal",
   "type" : "Eagle",
   "name" : "Орел",
   "age" : 0,
   "weight" : 6.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 1.0,
-  "startNumbOfSpeciesInOneCell" : 5,
-  "maxNumbOfSpeciesInOneCell" : 20
+  "startNumbOfSpeciesInOneCell" : 2,
+  "maxNumbOfSpeciesInOneCell" : 10
 }|{
+  "relation" : "Animal",
   "type" : "Fox",
   "name" : "Лиса",
   "age" : 0,
   "weight" : 8.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 2.0,
-  "startNumbOfSpeciesInOneCell" : 5,
-  "maxNumbOfSpeciesInOneCell" : 30
+  "startNumbOfSpeciesInOneCell" : 2,
+  "maxNumbOfSpeciesInOneCell" : 10
 }|{
+  "relation" : "Animal",
   "type" : "Goat",
   "name" : "Козел",
   "age" : 0,
   "weight" : 60.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 10.0,
-  "startNumbOfSpeciesInOneCell" : 30,
-  "maxNumbOfSpeciesInOneCell" : 140
+  "startNumbOfSpeciesInOneCell" : 5,
+  "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "Horse",
   "name" : "Лошадь",
   "age" : 0,
@@ -90,33 +101,37 @@
   "startNumbOfSpeciesInOneCell" : 4,
   "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "Mouse",
   "name" : "Мышь",
   "age" : 0,
   "weight" : 0.05,
   "speed" : 1,
   "weightFoodRemoveHunger" : 0.01,
-  "startNumbOfSpeciesInOneCell" : 50,
-  "maxNumbOfSpeciesInOneCell" : 500
+  "startNumbOfSpeciesInOneCell" : 5,
+  "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "Rabbit",
   "name" : "Кролик",
   "age" : 0,
   "weight" : 2.0,
   "speed" : 2,
   "weightFoodRemoveHunger" : 0.45,
-  "startNumbOfSpeciesInOneCell" : 30,
-  "maxNumbOfSpeciesInOneCell" : 150
+  "startNumbOfSpeciesInOneCell" : 10,
+  "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "Sheep",
   "name" : "Овца",
   "age" : 0,
   "weight" : 70.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 15.0,
-  "startNumbOfSpeciesInOneCell" : 20,
-  "maxNumbOfSpeciesInOneCell" : 140
+  "startNumbOfSpeciesInOneCell" : 10,
+  "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "WildBoar",
   "name" : "Дикий кабан",
   "age" : 0,
@@ -124,17 +139,28 @@
   "speed" : 2,
   "weightFoodRemoveHunger" : 50.0,
   "startNumbOfSpeciesInOneCell" : 5,
-  "maxNumbOfSpeciesInOneCell" : 50
+  "maxNumbOfSpeciesInOneCell" : 20
 }|{
+  "relation" : "Animal",
   "type" : "Wolf",
   "name" : "Волк",
   "age" : 0,
   "weight" : 50.0,
   "speed" : 3,
   "weightFoodRemoveHunger" : 8.0,
-  "startNumbOfSpeciesInOneCell" : 8,
-  "maxNumbOfSpeciesInOneCell" : 30
-}
+  "startNumbOfSpeciesInOneCell" : 2,
+  "maxNumbOfSpeciesInOneCell" : 20
+}|{
+  "relation" : "Plant",
+   "type" : "Grass",
+   "name" : "Трава",
+   "age" : 0,
+   "weight" : 1.0,
+   "speed" : 0,
+   "weightFoodRemoveHunger" : 0.0,
+   "startNumbOfSpeciesInOneCell" : 2,
+   "maxNumbOfSpeciesInOneCell" : 20
+ }
 </animalList>
 
 <view>

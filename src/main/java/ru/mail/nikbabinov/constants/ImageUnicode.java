@@ -1,6 +1,6 @@
 package ru.mail.nikbabinov.constants;
 
-public enum ImageUnicodeAnimal {
+public enum ImageUnicode {
     BEAR("\uD83D\uDC3B"),
     BOACONSTRICTOR("\uD83D\uDC0D"),
     BUFFALO("\uD83D\uDC03"),
@@ -15,11 +15,12 @@ public enum ImageUnicodeAnimal {
     RABBIT("\uD83D\uDC07"),
     SHEEP("\uD83D\uDC11"),
     WILDBOAR("\uD83D\uDC17"),
-    WOLF("\uD83D\uDC3A");
+    WOLF("\uD83D\uDC3A"),
+    GRASS("\uD83C\uDF40");
 
     private final String image;
 
-    private ImageUnicodeAnimal(String image) {
+    private ImageUnicode(String image) {
         this.image = image;
     }
 

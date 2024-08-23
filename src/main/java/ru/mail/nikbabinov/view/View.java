@@ -15,14 +15,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import ru.mail.nikbabinov.app.MainApplication;
-import ru.mail.nikbabinov.constants.ImageUnicodeAnimal;
+import ru.mail.nikbabinov.constants.ImageUnicode;
 import ru.mail.nikbabinov.constants.ScaleViewProperty;
 import ru.mail.nikbabinov.constants.ViewText;
 import ru.mail.nikbabinov.controller.AnimalEditController;
 import ru.mail.nikbabinov.controller.StartSceneViewController;
 import ru.mail.nikbabinov.controller.WildIslandController;
 import ru.mail.nikbabinov.controller.ConfigApplicationController;
-import ru.mail.nikbabinov.entity.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.WildLife;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +63,7 @@ public class View extends Application {
         setSceneWildIsland(wildIslandStage, mapAnimalWildIsland);
     }
 
-    private void showAnimalEditDialog(TableView<Animal> animalTableView) {
+    private void showAnimalEditDialog(TableView<WildLife> animalTableView) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/AnimalEditProperty.fxml"));
         AnchorPane page;
@@ -123,7 +123,7 @@ public class View extends Application {
 
         if (!isAddEventHandlerToGridPane) {
             addEventHandlerToGridPane(gridPaneFieldAnimal);
-            showStartButton(page,gridPaneFieldAnimal);
+            showStartButton(page, gridPaneFieldAnimal);
             isAddEventHandlerToGridPane = true;
         }
         page.setCenter(gridPaneFieldAnimal);
@@ -137,7 +137,7 @@ public class View extends Application {
         ObservableList<Node> childrenGridPane = gridPane.getChildrenUnmodifiable();
         for (Node node : childrenGridPane) {
             if (node instanceof Pane pane) {
-                pane.setOnMouseClicked(event -> {
+                pane.setOnMouseClicked(_ -> {
                     showDetailInformationOfAnimalOneCell(GridPane.getRowIndex(node), GridPane.getColumnIndex(node));
                 });
             }
@@ -170,7 +170,7 @@ public class View extends Application {
                     labelImageUnicodeAnimal.get(iterator).getStyleClass().add(typeAnimal);
                     labelImageUnicodeAnimal.get(iterator).getStyleClass().add("Animals");
                     labelStatisticalTotalNumberAnimal.get(iterator).getStyleClass().add("LabelStatistical");
-                    String imageUnicode = ImageUnicodeAnimal.valueOf(typeAnimal.toUpperCase()).getImage();
+                    String imageUnicode = ImageUnicode.valueOf(typeAnimal.toUpperCase()).getImage();
                     (labelImageUnicodeAnimal.get(iterator)).setText(imageUnicode);
                     labelStatisticalTotalNumberAnimal.get(iterator).setText(String.valueOf(animal.getValue()));
                     iterator++;
@@ -225,10 +225,10 @@ public class View extends Application {
         return gridPane;
     }
 
-    private void addLabelAnimalInGridPane(int colIndex, int rowIndex, GridPane gridPane, Map<String, Integer> animals) {
+    private void addLabelAnimalInGridPane(int colIndex, int rowIndex, GridPane gridPane, Map<String, Integer> objectWildIsland) {
         Pane pane = new Pane();
         double fxTranslateY = 0;
-        for (Map.Entry<String, Integer> _ : animals.entrySet()) {
+        for (Map.Entry<String, Integer> _ : objectWildIsland.entrySet()) {
             Label imageUnicodeAnimal = new Label();
             Label statisticalTotalNumberAnimal = new Label();
             imageUnicodeAnimal.setId("imageUnicodeAnimal");
@@ -245,12 +245,15 @@ public class View extends Application {
     }
 
     public void showStartButton(BorderPane borderPane, GridPane gridPaneFieldAnimal) {
+        Label scaleInfo = new Label("Масштаб 1 : 10");
+        scaleInfo.getStyleClass().add("Label");
+        scaleInfo.setId("scaleInformation");
         Button startButton = new Button("Старт");
         startButton.getStyleClass().add("Button");
         startButton.setId("starButton");
         Pane pane = new Pane();
         pane.setId("paneBottomIsland");
-        pane.getChildren().add(startButton);
+        pane.getChildren().addAll(startButton, scaleInfo);
         startButton.setOnAction(_ ->
                 mainApplication.runLifeAnimal(gridPaneFieldAnimal)
         );
@@ -258,7 +261,7 @@ public class View extends Application {
     }
 
 
-    public void showEditAnimalButtons(TableView<Animal> tableAnimals) {
+    public void showEditAnimalButtons(TableView<WildLife> tableAnimals) {
         Button dellAnimal = new Button("Удалить");
         Button editAnimal = new Button("Изменить");
         rootLayout.getChildren().add(dellAnimal);
@@ -276,12 +279,12 @@ public class View extends Application {
 
     }
 
-    public void startIslandEmulation(ObservableList<Animal> animals) throws IOException {
+    public void startIslandEmulation(ObservableList<WildLife> objectWildIsland) throws IOException {
         awaitCreateAnimals();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                mainApplication.initAnimalWildIsland(animals);
+                mainApplication.initAnimalWildIsland(objectWildIsland);
                 try {
                     showWildIsland(mainApplication.getMapAnimalWildIsland(ScaleViewProperty.MAIN_WILD_ISLAND_STAGE));
                 } catch (IOException e) {
@@ -291,7 +294,7 @@ public class View extends Application {
         });
     }
 
-    public ObservableList<Animal> getObservableListAnimal() {
+    public ObservableList<WildLife> getObservableListAnimal() {
         return mainApplication.getObservableListAnimal();
     }
 

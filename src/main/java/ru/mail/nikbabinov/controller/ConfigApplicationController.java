@@ -5,14 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.mail.nikbabinov.constants.PathToFile;
-import ru.mail.nikbabinov.entity.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.WildLife;
+import ru.mail.nikbabinov.entity.wildLife.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.flora.Plant;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ConfigApplicationController {
-    private static final ObservableList<Animal> animals = FXCollections.observableArrayList();
+    private static final ObservableList<WildLife> WILD_LIFE = FXCollections.observableArrayList();
 
     public static int getSizeIsland(String widthOrHeight) {
         String configFile = ConfigApplicationController.getConfigFile();
@@ -34,19 +36,31 @@ public class ConfigApplicationController {
         };
     }
 
-    public static ObservableList<Animal> getObservableListAnimals() {
+    public static ObservableList<WildLife> getObservableListAnimals() {
         String configApplication = ConfigApplicationController.getConfigFile();
-        String[] animalList = configApplication.substring(configApplication.indexOf("<animalList>") + 13, configApplication.indexOf("</animalList>")).split("\\|");
-        for (String animalString : animalList) {
-            Animal animal;
-            try {
-                animal = new ObjectMapper().readValue(animalString, Animal.class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
+        String[] animalAndPlantList = configApplication.substring(configApplication.indexOf("<animalList>") + 13, configApplication.indexOf("</animalList>")).split("\\|");
+        for (String animalOrPlant : animalAndPlantList) {
+            if (animalOrPlant.contains("\"relation\" : \"Animal\"")) {
+                Animal animal;
+                try {
+                    animal = new ObjectMapper().readValue(animalOrPlant, Animal.class);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                WILD_LIFE.add(animal);
             }
-            animals.add(animal);
+            if (animalOrPlant.contains("\"relation\" : \"Plant\"")) {
+                Plant plant;
+                try {
+                    plant = new ObjectMapper().readValue(animalOrPlant, Plant.class);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                WILD_LIFE.add(plant);
+            }
+
         }
-        return animals;
+        return WILD_LIFE;
     }
 
     public static String getConfigFile() {

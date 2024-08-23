@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ru.mail.nikbabinov.entity.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.WildLife;
+import ru.mail.nikbabinov.entity.wildLife.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.flora.Plant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +15,9 @@ public class AnimalEditController {
 
     private Stage dialogStage;
 
-    private TableView<Animal> tableAnimals;
+    private TableView<WildLife> wildLifeTableView;
 
-    private Animal animal;
+    private WildLife wildLifeObject;
 
     private StartSceneViewController controllerStartScene;
 
@@ -42,15 +44,25 @@ public class AnimalEditController {
     private void initialize() {
     }
 
-    public void setAnimalProperty(TableView<Animal> tableAnimals) {
-        this.animal = tableAnimals.getSelectionModel().getSelectedItem();
-        this.tableAnimals = tableAnimals;
-        ageTextField.setText(String.valueOf(animal.getAge()));
-        weightTextField.setText(String.valueOf(animal.getWeight()));
-        speedTextField.setText(String.valueOf(animal.getSpeed()));
-        weightFoodRemoveHungerTextField.setText(String.valueOf(animal.getWeightFoodRemoveHunger()));
-        maxNumbOfSpeciesInOneCellTextField.setText(String.valueOf(animal.getMaxNumbOfSpeciesInOneCell()));
-        startNumbOfSpeciesInOneCellTextField.setText(String.valueOf(animal.getStartNumbOfSpeciesInOneCell()));
+    public void setAnimalProperty(TableView<WildLife> tableAnimals) {
+        this.wildLifeObject = tableAnimals.getSelectionModel().getSelectedItem();
+        this.wildLifeTableView = tableAnimals;
+        if (wildLifeObject instanceof Animal) {
+            ageTextField.setText(String.valueOf(((Animal)wildLifeObject).getAge()));
+            weightTextField.setText(String.valueOf(((Animal)wildLifeObject).getWeight()));
+            speedTextField.setText(String.valueOf(((Animal)wildLifeObject).getSpeed()));
+            weightFoodRemoveHungerTextField.setText(String.valueOf(((Animal)wildLifeObject).getWeightFoodRemoveHunger()));
+            maxNumbOfSpeciesInOneCellTextField.setText(String.valueOf(((Animal)wildLifeObject).getMaxNumbOfSpeciesInOneCell()));
+            startNumbOfSpeciesInOneCellTextField.setText(String.valueOf(((Animal)wildLifeObject).getStartNumbOfSpeciesInOneCell()));
+        }
+        if (wildLifeObject instanceof Plant) {
+            ageTextField.setText(String.valueOf(((Plant)wildLifeObject).getAge()));
+            weightTextField.setText(String.valueOf(((Plant)wildLifeObject).getWeight()));
+            speedTextField.setText(String.valueOf(((Plant)wildLifeObject).getSpeed()));
+            weightFoodRemoveHungerTextField.setText(String.valueOf(((Plant)wildLifeObject).getWeightFoodRemoveHunger()));
+            maxNumbOfSpeciesInOneCellTextField.setText(String.valueOf(((Plant)wildLifeObject).getMaxNumbOfSpeciesInOneCell()));
+            startNumbOfSpeciesInOneCellTextField.setText(String.valueOf(((Plant)wildLifeObject).getStartNumbOfSpeciesInOneCell()));
+        }
     }
 
     public void setDialogStage(Stage dialogStage, StartSceneViewController controllerStartScene) {
@@ -75,13 +87,13 @@ public class AnimalEditController {
         textFields.add(startNumbOfSpeciesInOneCellTextField);
 
         if (checkFieldIsNumber(textFields)) {
-            animal.setAge(Integer.parseInt(ageTextField.getText()));
-            animal.setWeight(Double.parseDouble(weightTextField.getText()));
-            animal.setSpeed(Integer.parseInt(speedTextField.getText()));
-            animal.setWeightFoodRemoveHunger(Double.parseDouble(weightFoodRemoveHungerTextField.getText()));
-            animal.setMaxNumbOfSpeciesInOneCell(Integer.parseInt(maxNumbOfSpeciesInOneCellTextField.getText()));
-            animal.setStartNumbOfSpeciesInOneCell(Integer.parseInt(startNumbOfSpeciesInOneCellTextField.getText()));
-            controllerStartScene.showAnimalProperty(animal);
+            ((Animal)wildLifeObject).setAge(Integer.parseInt(ageTextField.getText()));
+            ((Animal)wildLifeObject).setWeight(Double.parseDouble(weightTextField.getText()));
+            ((Animal)wildLifeObject).setSpeed(Integer.parseInt(speedTextField.getText()));
+            ((Animal)wildLifeObject).setWeightFoodRemoveHunger(Double.parseDouble(weightFoodRemoveHungerTextField.getText()));
+            ((Animal)wildLifeObject).setMaxNumbOfSpeciesInOneCell(Integer.parseInt(maxNumbOfSpeciesInOneCellTextField.getText()));
+            ((Animal)wildLifeObject).setStartNumbOfSpeciesInOneCell(Integer.parseInt(startNumbOfSpeciesInOneCellTextField.getText()));
+            controllerStartScene.showAnimalProperty(wildLifeObject);
             dialogStage.close();
         } else {
             viewErrorField(textFields);

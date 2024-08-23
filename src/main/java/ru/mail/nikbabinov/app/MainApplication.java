@@ -10,7 +10,9 @@ import javafx.scene.layout.GridPane;
 import ru.mail.nikbabinov.constants.ScaleViewProperty;
 import ru.mail.nikbabinov.controller.AnimalActionController;
 import ru.mail.nikbabinov.controller.ConfigApplicationController;
-import ru.mail.nikbabinov.entity.fauna.Animal;
+import ru.mail.nikbabinov.entity.wildLife.WildLife;
+import ru.mail.nikbabinov.entity.wildLife.fauna.*;
+import ru.mail.nikbabinov.entity.wildLife.flora.Plant;
 import ru.mail.nikbabinov.view.View;
 
 import java.lang.management.ManagementFactory;
@@ -18,54 +20,83 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 public class MainApplication {
-    public static ConcurrentHashMap<String, ObservableList<Animal>> wildIslandMap;
     private static View view;
+    private static ConcurrentHashMap<String, ObservableList<WildLife>> wildIslandMap;
+    private static final int threadCount = (ManagementFactory.getThreadMXBean().getThreadCount());
 
     public static void main(String[] args) {
         view = new View();
         view.applicationRun();
     }
 
-    public ObservableList<Animal> getObservableListAnimal() {
+    public static ConcurrentHashMap<String, ObservableList<WildLife>> getWildIslandMap() {
+        return wildIslandMap;
+    }
+
+    public ObservableList<WildLife> getObservableListAnimal() {
         return ConfigApplicationController.getObservableListAnimals();
     }
 
-    public void removeAnimalInList(TableView<Animal> tableAnimals) {
+    public void removeAnimalInList(TableView<WildLife> tableAnimals) {
         int selectedIndex = tableAnimals.getSelectionModel().getSelectedIndex();
         tableAnimals.getItems().remove(selectedIndex);
     }
 
-    public ObservableList<Animal> createAllAnimalPopulation(ObservableList<Animal> animalObservableList) {
-        ObservableList<Animal> allAnimalPopulation = FXCollections.observableArrayList();
-        for (Animal animal : animalObservableList) {
-            int randomNumberAnimalInOneCell = ThreadLocalRandom.current().nextInt(animal.getStartNumbOfSpeciesInOneCell(), animal.getMaxNumbOfSpeciesInOneCell() + 1);
+    public ObservableList<WildLife> createAllPopulation(ObservableList<WildLife> animalObservableList) {
+        ObservableList<WildLife> allPopulationWildIsland = FXCollections.observableArrayList();
+        for (WildLife populations : animalObservableList) {
+            int randomNumberAnimalInOneCell = 0;
+            if (populations instanceof Animal) {
+                randomNumberAnimalInOneCell = ThreadLocalRandom.current().nextInt(((Animal) populations).getStartNumbOfSpeciesInOneCell(), ((Animal) populations).getMaxNumbOfSpeciesInOneCell() + 1);
+            }
+            if (populations instanceof Plant) {
+                randomNumberAnimalInOneCell = ThreadLocalRandom.current().nextInt(((Plant) populations).getStartNumbOfSpeciesInOneCell(), ((Plant) populations).getMaxNumbOfSpeciesInOneCell() + 1);
+            }
             for (int i = 0; i < randomNumberAnimalInOneCell; i++) {
-                Animal copyAnimal = copyAnimal(animal);
-                allAnimalPopulation.add(copyAnimal);
+                if (populations instanceof Animal) {
+                    Animal copyAnimal = copyAnimal((Animal) populations);
+                    allPopulationWildIsland.add(copyAnimal);
+                }
+                if (populations instanceof Plant) {
+                    Plant copyPlant = copyPlant((Plant) populations);
+                    allPopulationWildIsland.add(copyPlant);
+                }
             }
         }
-        return allAnimalPopulation;
+        return allPopulationWildIsland;
+    }
+
+    private Plant copyPlant(Plant populations) {
+        ObjectMapper mapper = new ObjectMapper();
+        Plant plantCopy;
+        try {
+            String plantJson = mapper.writeValueAsString(populations);
+            plantCopy = new ObjectMapper().readValue(plantJson, Plant.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return plantCopy;
     }
 
     private Animal copyAnimal(Animal animal) {
         ObjectMapper mapper = new ObjectMapper();
-        Animal copyAnimal;
+        Animal copyObject;
         try {
             String animalJson = mapper.writeValueAsString(animal);
-            copyAnimal = new ObjectMapper().readValue(animalJson, Animal.class);
+            copyObject = new ObjectMapper().readValue(animalJson, Animal.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return copyAnimal;
+        return copyObject;
     }
 
     public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getMapAnimalWildIsland(ScaleViewProperty scaleViewProperty) {
         return getScopeStatisticalNumberAnimalsInMap(scaleViewProperty.getScale());
     }
 
-    public void initAnimalWildIsland(ObservableList<Animal> animalObservableList) {
+    public void initAnimalWildIsland(ObservableList<WildLife> animalObservableList) {
 
-        ExecutorService executor = Executors.newWorkStealingPool();
+        ExecutorService executor = Executors.newWorkStealingPool(threadCount);
         int widthIsland = ConfigApplicationController.getSizeIsland("width");
         int heightIsland = ConfigApplicationController.getSizeIsland("height");
         wildIslandMap = new ConcurrentHashMap<>();
@@ -73,7 +104,7 @@ public class MainApplication {
             for (int column = 0; column < widthIsland; column++) {
                 int finalRow = row;
                 int finalColumn = column;
-                executor.execute(() -> wildIslandMap.put(finalRow + ":" + finalColumn, createAllAnimalPopulation(animalObservableList)));
+                executor.execute(() -> wildIslandMap.put(finalRow + ":" + finalColumn, createAllPopulation(animalObservableList)));
             }
         }
         executor.shutdown();
@@ -87,9 +118,9 @@ public class MainApplication {
         }
     }
 
-    synchronized public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getStatisticalNumberAnimalsInMap() {
+    public ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> getStatisticalNumberAnimalsInMap() {
         ConcurrentHashMap<String, ConcurrentHashMap<String, Integer>> numberAnimalOneCellMap = new ConcurrentHashMap<>();
-        for (Map.Entry<String, ObservableList<Animal>> entry : wildIslandMap.entrySet()) {
+        for (Map.Entry<String, ObservableList<WildLife>> entry : wildIslandMap.entrySet()) {
             ConcurrentHashMap<String, Integer> animalPopulation = getStringIntegerConcurrentHashMap(entry);
             String key = entry.getKey();
             numberAnimalOneCellMap.put(key, animalPopulation);
@@ -97,17 +128,14 @@ public class MainApplication {
         return numberAnimalOneCellMap;
     }
 
-    private static ConcurrentHashMap<String, Integer> getStringIntegerConcurrentHashMap(Map.Entry<String, ObservableList<Animal>> entry) {
+    private static ConcurrentHashMap<String, Integer> getStringIntegerConcurrentHashMap(Map.Entry<String, ObservableList<WildLife>> entry) {
         synchronized (wildIslandMap) {
+            ObservableList<WildLife> wildLifeProperty = entry.getValue();
             ConcurrentHashMap<String, Integer> animalPopulation = new ConcurrentHashMap<>();
-            ObservableList<Animal> animalProprieties = entry.getValue();
-            for (Animal animal : animalProprieties) {
-                String keyNameAnimal = animal.getClass().getSimpleName();
-                if (!animalPopulation.containsKey(keyNameAnimal)) {
-                    animalPopulation.put(keyNameAnimal, 1);
-                } else {
-                    animalPopulation.put(keyNameAnimal, animalPopulation.get(keyNameAnimal) + 1);
-                }
+            for (WildLife wildLifeObject : wildLifeProperty) {
+                String keyNameAnimal = wildLifeObject.getClass().getSimpleName();
+                if (!animalPopulation.containsKey(keyNameAnimal)) animalPopulation.put(keyNameAnimal, 1);
+                else animalPopulation.put(keyNameAnimal, animalPopulation.get(keyNameAnimal) + 1);
             }
 
             return animalPopulation;
@@ -195,8 +223,8 @@ public class MainApplication {
     }
 
     public void runLifeAnimal(GridPane gridPaneFieldAnimal) {
-        int threadCount = (ManagementFactory.getThreadMXBean().getThreadCount()) / 4;
-        ScheduledExecutorService executorField = Executors.newScheduledThreadPool(threadCount);
+        ScheduledExecutorService executorField = Executors.newScheduledThreadPool(2);
+
         executorField.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -208,20 +236,26 @@ public class MainApplication {
                 });
 
             }
-        }, 0, 500, TimeUnit.MILLISECONDS);
+        }, 0, 200, TimeUnit.MILLISECONDS);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(threadCount);
-        synchronized (wildIslandMap){
-            for (Map.Entry<String, ObservableList<Animal>> animalsInCelField : wildIslandMap.entrySet()) {
-                for (Animal animal : animalsInCelField.getValue()) {
-                    executorService.scheduleAtFixedRate(new Runnable() {
-                        @Override
-                        public void run() {
-                            AnimalActionController.animalMove(animal, animalsInCelField.getKey(), wildIslandMap);
-                        }
-                    }, 0L, 100, TimeUnit.MILLISECONDS);
-                }
+
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCount / 2);
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        for (Map.Entry<String, ObservableList<WildLife>> animalsInCelField : wildIslandMap.entrySet())
+            synchronized (wildIslandMap) {
+                scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+                    @Override
+                    public void run() {
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                AnimalActionController.animalMove();
+                            }
+                        });
+                    }
+                }, 5, 100, TimeUnit.MILLISECONDS);
             }
-        }
     }
+
 }

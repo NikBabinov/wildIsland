@@ -61,10 +61,10 @@
     -fx-font-size: 10.5;
 }
 
-
 .buttonDellAnimal:hover {
     -fx-background-color: rgb(255, 182, 193);
 }
+
 
 #mainMenu_vueTableAnimals {
     -fx-font-size: 14;
@@ -185,4 +185,9 @@
     -fx-min-width: 30;
     -fx-border-style: solid;
     -fx-border-width: 0 0 1 0;
+}
+
+#scaleInformation{
+    -fx-translate-y: 10;
+    -fx-translate-x: 550;
 }
